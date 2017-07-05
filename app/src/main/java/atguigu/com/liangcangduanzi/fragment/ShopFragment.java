@@ -1,8 +1,8 @@
 package atguigu.com.liangcangduanzi.fragment;
 
 import android.view.View;
-import android.widget.TextView;
 
+import atguigu.com.liangcangduanzi.R;
 import atguigu.com.liangcangduanzi.bean.BaseFragment;
 
 /**
@@ -11,11 +11,12 @@ import atguigu.com.liangcangduanzi.bean.BaseFragment;
 
 public class ShopFragment extends BaseFragment {
 
-    private TextView tv;
+
     @Override
     public View initView() {
-        tv = new TextView(context);
-        tv.setText(111+"");
-        return tv;
+        View view  = View.inflate(context,R.layout.fragment_shop,null);
+
+
+        return view;
     }
 }
