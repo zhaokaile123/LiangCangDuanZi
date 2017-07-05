@@ -28,8 +28,6 @@ public class WelcomeActivity extends AppCompatActivity {
 
         handler.sendEmptyMessageDelayed(0,3000);
 
-
-
     }
 
     private Handler handler = new Handler(){
