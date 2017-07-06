@@ -2,6 +2,32 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#333333"
+    xmlns:ptr="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
+
+    <include
+        android:id="@+id/titlebar"
+        layout="@layout/titlebar2" />
+
+    <com.handmark.pulltorefresh.library.PullToRefreshGridView
+        android:id="@+id/pullToRefreshGridView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#ff000000"
+        android:horizontalSpacing="20dp"
+        android:numColumns="3"
+        android:padding="10dp"
+        android:verticalSpacing="20dp"
+        android:fastScrollEnabled="false"
+        android:footerDividersEnabled="false"
+        android:headerDividersEnabled="false"
+        android:smoothScrollbar="true"
+        ptr:ptrMode="both"
+        android:fadingEdge="none"
+
+        >
+
+    </com.handmark.pulltorefresh.library.PullToRefreshGridView>
 
 </LinearLayout>

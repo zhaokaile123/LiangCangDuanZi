@@ -52,6 +52,7 @@ public class TypeFragment extends BaseFragment {
         gridView = pullToRefreshGridView.getRefreshableView();
 
 
+
         return view;
     }
 
