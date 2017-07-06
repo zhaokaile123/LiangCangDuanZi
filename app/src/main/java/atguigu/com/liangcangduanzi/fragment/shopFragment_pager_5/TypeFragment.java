@@ -1,10 +1,16 @@
 package atguigu.com.liangcangduanzi.fragment.shopFragment_pager_5;
 
+import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.GridView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.handmark.pulltorefresh.library.PullToRefreshBase;
+import com.handmark.pulltorefresh.library.PullToRefreshGridView;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
@@ -25,17 +31,25 @@ import okhttp3.Call;
 
 public class TypeFragment extends BaseFragment {
 
-    @InjectView(R.id.gridview)
-    GridView gridview;
 
-    private List<TypeAllBean> typeAllBeen ;
+    @InjectView(R.id.pullToRefreshGridView)
+    PullToRefreshGridView pullToRefreshGridView;
+    private List<TypeAllBean> typeAllBeen;
     private Pager_typeAdapter adapter;
+
+    private  GridView gridView;
+
+
 
     @Override
     public View initView() {
 
         View view = View.inflate(getActivity(), R.layout.pager_type, null);
         ButterKnife.inject(this, view);
+
+        gridView = pullToRefreshGridView.getRefreshableView();
+
+
         return view;
     }
 
@@ -44,8 +58,6 @@ public class TypeFragment extends BaseFragment {
         super.initData();
 
         getDataFromNet();
-
-        initListener();
     }
 
     //设置监听
@@ -56,15 +68,25 @@ public class TypeFragment extends BaseFragment {
             @Override
             public void onItemClick(int position) {
                 //跳转到 显示东西的 activity
-
             }
         });
 
-        //点击 搜索
+        //先下刷新监听
+        pullToRefreshGridView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<GridView>() {
+            @Override//下拉
+            public void onPullDownToRefresh(PullToRefreshBase<GridView> refreshView) {
 
+                getDataFromNet();
+            }
 
-        //点击购物车
+            @Override
+            public void onPullUpToRefresh(PullToRefreshBase<GridView> refreshView) {
 
+                Toast.makeText(getActivity(), "没有更多数据了", Toast.LENGTH_SHORT).show();
+                pullToRefreshGridView.onRefreshComplete();
+
+            }
+        });
 
 
     }
@@ -78,8 +100,7 @@ public class TypeFragment extends BaseFragment {
                 .addParams("username", "hyman")
                 .addParams("password", "123")
                 .build()
-                .execute(new StringCallback()
-                {
+                .execute(new StringCallback() {
                     @Override
                     public void onError(Call call, Exception e, int id) {
 
@@ -90,20 +111,23 @@ public class TypeFragment extends BaseFragment {
                         progressData(response);
 
                     }
-
                 });
     }
 
 
     private void progressData(String json) {
-        Log.e("TAG","json" + json);
+        Log.e("TAG", "json" + json);
 
         TypeAllBean typeAllBean = new Gson().fromJson(json, TypeAllBean.class);
 
         adapter = new Pager_typeAdapter(context);
-        gridview.setAdapter(adapter);
+        gridView.setAdapter(adapter);
 
         adapter.refresh(typeAllBean.getData().getItems());
+
+        pullToRefreshGridView.onRefreshComplete();
+
+        initListener();
 
     }
 
@@ -111,5 +135,13 @@ public class TypeFragment extends BaseFragment {
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.reset(this);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // TODO: inflate a fragment view
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        ButterKnife.inject(this, rootView);
+        return rootView;
     }
 }

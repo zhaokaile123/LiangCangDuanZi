@@ -4,15 +4,15 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <GridView
-        android:padding="20dp"
+    <com.handmark.pulltorefresh.library.PullToRefreshGridView
+        android:padding="10dp"
         android:background="#000000"
-        android:id="@+id/gridview"
+        android:id="@+id/pullToRefreshGridView"
         android:numColumns="2"
         android:horizontalSpacing="20dp"
         android:verticalSpacing="20dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    </GridView>
+    </com.handmark.pulltorefresh.library.PullToRefreshGridView>
 
 </LinearLayout>
