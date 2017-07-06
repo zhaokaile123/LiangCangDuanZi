@@ -1,4 +1,4 @@
-package atguigu.com.liangcangduanzi.fragment;
+package atguigu.com.liangcangduanzi.fragment.shopFragment_pager_5;
 
 import android.view.View;
 import android.widget.TextView;
@@ -9,7 +9,7 @@ import atguigu.com.liangcangduanzi.base.BaseFragment;
  * Created by ASUS on 2017/7/5.
  */
 
-public class DaRenFragment extends BaseFragment {
+public class BrandFragment extends BaseFragment{
     private TextView tv;
     @Override
     public View initView() {

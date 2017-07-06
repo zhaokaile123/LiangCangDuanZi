@@ -1,4 +1,4 @@
-package atguigu.com.liangcangduanzi.bean;
+package atguigu.com.liangcangduanzi.base;
 
 import android.content.Context;
 import android.os.Bundle;

@@ -11,7 +11,7 @@ import android.widget.RadioGroup;
 import java.util.ArrayList;
 
 import atguigu.com.liangcangduanzi.R;
-import atguigu.com.liangcangduanzi.bean.BaseFragment;
+import atguigu.com.liangcangduanzi.base.BaseFragment;
 import atguigu.com.liangcangduanzi.fragment.DaRenFragment;
 import atguigu.com.liangcangduanzi.fragment.Pesonal;
 import atguigu.com.liangcangduanzi.fragment.ShareFragment;
