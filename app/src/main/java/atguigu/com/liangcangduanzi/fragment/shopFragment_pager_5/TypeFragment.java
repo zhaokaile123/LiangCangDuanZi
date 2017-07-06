@@ -1,5 +1,6 @@
 package atguigu.com.liangcangduanzi.fragment.shopFragment_pager_5;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,6 +21,7 @@ import atguigu.com.liangcangduanzi.R;
 import atguigu.com.liangcangduanzi.adapter.Pager_typeAdapter;
 import atguigu.com.liangcangduanzi.base.BaseFragment;
 import atguigu.com.liangcangduanzi.bean.TypeAllBean;
+import atguigu.com.liangcangduanzi.activity.Type_itemsActivity;
 import atguigu.com.liangcangduanzi.utils.JieKouUtils;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -60,6 +62,7 @@ public class TypeFragment extends BaseFragment {
         getDataFromNet();
     }
 
+    private String url;
     //设置监听
     private void initListener() {
 
@@ -68,6 +71,86 @@ public class TypeFragment extends BaseFragment {
             @Override
             public void onItemClick(int position) {
                 //跳转到 显示东西的 activity
+
+                switch (position){
+                    case 0:
+                        url = JieKouUtils.TYPE_JIAJU1;
+                        break;
+                    case 1:
+                        url = JieKouUtils.TYPE_JIAJU2;
+                        break;
+                    case 2:
+                        url = JieKouUtils.TYPR_WENJU;
+
+                        break;
+                    case 3:
+                        url = JieKouUtils.TYPR_SHUMA;
+
+                        break;
+                    case 4:
+                        url = JieKouUtils.TYPE_WANLE;
+                        break;
+                    case 5:
+                        url = JieKouUtils.TYPE_CHUWEI;
+
+                        break;
+                    case 6:
+                        url = JieKouUtils.TYPE_MEISHI;
+
+                        break;
+                    case 7:
+                        url = JieKouUtils.TYPE_NAZHUANG;
+
+                        break;
+                    case 8:
+                        url = JieKouUtils.TYPE_NVZHUANG;
+
+                        break;
+                    case 9:
+                        url = JieKouUtils.TYPE_TONGZHUANG;
+
+                        break;
+                    case 10:
+                        url = JieKouUtils.TYPR_XIEBAO;
+
+                        break;
+                    case 11:
+                        url = JieKouUtils.TYPE_PEISHI;
+
+                        break;
+                    case 12:
+                        url = JieKouUtils.TYPE_MEIHU;
+
+                        break;
+                    case 13:
+                        url = JieKouUtils.TYPE_HUWAI;
+
+                        break;
+                    case 14:
+                        url = JieKouUtils.TYPR_ZHIWU;
+
+                        break;
+                    case 15:
+                        url = JieKouUtils.TYPE_TUSHU;
+
+                        break;
+                    case 16:
+                        url = JieKouUtils.TYPE_LIWU;
+                        break;
+                    case 17:
+                        url = JieKouUtils.TYPE_TUIJIAN;
+
+                        break;
+                    case 18:
+                        url = JieKouUtils.TYPE_YISHU;
+                        break;
+                }
+
+
+                Intent intent = new Intent(getActivity(), Type_itemsActivity.class);
+                intent.putExtra("url",url);
+                Log.e("TAG","url111==" + url);
+                startActivity(intent);
             }
         });
 
@@ -97,8 +180,6 @@ public class TypeFragment extends BaseFragment {
         OkHttpUtils
                 .get()
                 .url(JieKouUtils.TYPE_ALL)
-                .addParams("username", "hyman")
-                .addParams("password", "123")
                 .build()
                 .execute(new StringCallback() {
                     @Override

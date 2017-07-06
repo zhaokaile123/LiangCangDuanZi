@@ -20,7 +20,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.MainActivity" />
-        <activity android:name=".activity.SearchActivity"></activity>
+        <activity android:name=".activity.SearchActivity" />
+        <activity android:name=".activity.Type_itemsActivity"
+            >
+
+        </activity>
     </application>
 
 </manifest>

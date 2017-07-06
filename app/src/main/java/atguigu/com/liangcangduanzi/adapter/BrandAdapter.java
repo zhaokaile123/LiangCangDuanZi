@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
@@ -12,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import atguigu.com.liangcangduanzi.R;
-import atguigu.com.liangcangduanzi.bean.TypeAllBean;
+import atguigu.com.liangcangduanzi.bean.BrandBean;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
@@ -20,17 +21,17 @@ import butterknife.InjectView;
  * Created by ASUS on 2017/7/6.
  */
 
-public class Pager_typeAdapter extends BaseAdapter {
+public class BrandAdapter extends BaseAdapter {
 
     private Context context;
-    List<TypeAllBean.DataBean.ItemsBean> data = new ArrayList<>();
+    private List<BrandBean.DataBean.ItemsBean> data = new ArrayList<>();
 
-
-    public Pager_typeAdapter(Context context) {
+    public BrandAdapter(Context context) {
         this.context = context;
+
     }
 
-    public void refresh(List<TypeAllBean.DataBean.ItemsBean> list) {
+    public void refresh(List<BrandBean.DataBean.ItemsBean> list) {
         //校验
         if (list != null && list.size() >= 0) {
             this.data.clear();
@@ -38,7 +39,6 @@ public class Pager_typeAdapter extends BaseAdapter {
             this.notifyDataSetChanged();
         }
     }
-
 
     @Override
     public int getCount() {
@@ -56,66 +56,41 @@ public class Pager_typeAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(final int position, View convertView, ViewGroup viewGroup) {
+    public View getView(int position, View convertView, ViewGroup viewGroup) {
         ViewHolder viewHolder = null;
         if (convertView == null) {
-            convertView = View.inflate(context, R.layout.item_type, null);
+            convertView = View.inflate(context, R.layout.item_brand, null);
             viewHolder = new ViewHolder(convertView);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        TypeAllBean.DataBean.ItemsBean itemsBean = data.get(position);
-        String imageUrl = itemsBean.getNew_cover_img();
+        BrandBean.DataBean.ItemsBean itemsBean = data.get(position);
+        viewHolder.tvName.setText(itemsBean.getBrand_name());
+
+        String imageUrl = itemsBean.getBrand_logo();
 
         Picasso.with(context)
                 .load(imageUrl)
                 .placeholder(R.drawable.comment_no_data)
                 .error(R.drawable.comment_no_data)
-                .into(viewHolder.imageview);
+                .into(viewHolder.ivIcon);
 
-
-        //设置回调接口
-        viewHolder.imageview.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(itemClickListener != null){
-                    //getLayoutPosition()当前点击View的对应在列表中的位置
-                    itemClickListener.onItemClick(position);
-
-
-                }
-            }
-        });
 
         return convertView;
     }
 
     static class ViewHolder {
-        @InjectView(R.id.imageview)
-        ImageView imageview;
+        @InjectView(R.id.iv_icon)
+        ImageView ivIcon;
+        @InjectView(R.id.tv_name)
+        TextView tvName;
+        @InjectView(R.id.go)
+        ImageView go;
 
         ViewHolder(View view) {
             ButterKnife.inject(this, view);
         }
     }
-
-
-    //定义 接口
-
-    public interface OnItemClickListener{
-        /**
-         * 当某条被点击的时候回调
-         * @param position
-         */
-         void onItemClick(int position);
-    }
-
-    private  OnItemClickListener itemClickListener;
-
-    public void  setOnItemClickListener(OnItemClickListener l){
-        this.itemClickListener = l;
-    }
-
 }
