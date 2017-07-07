@@ -75,16 +75,31 @@ public class ProductAdapter extends BaseAdapter {
         String goods_name = data.get(i).getGoods_name();
         String price = data.get(i).getPrice();
 
+
         if (TextUtils.isEmpty(discount_price)) {
 
+            viewHolder.zhekou.setVisibility(View.GONE);
             viewHolder.xian.setVisibility(View.GONE);
             viewHolder.oldPrice.setVisibility(View.GONE);
             viewHolder.price.setText(price);
+
         } else {
-            viewHolder.oldPrice.setVisibility(View.VISIBLE);
+
             viewHolder.xian.setVisibility(View.VISIBLE);
-            viewHolder.oldPrice.setText(discount_price);
-            viewHolder.price.setText(price);
+            viewHolder.oldPrice.setVisibility(View.VISIBLE);
+            viewHolder.zhekou.setVisibility(View.VISIBLE);
+
+            String zhekouUrl = data.get(i).getPromotion_imgurl();
+
+            Picasso.with(context)
+                    .load(zhekouUrl)
+                    .placeholder(R.drawable.comment_no_data)
+                    .error(R.drawable.comment_no_data)
+                    .into(viewHolder.zhekou);
+
+
+            viewHolder.oldPrice.setText(price);
+            viewHolder.price.setText(discount_price);
         }
 
         viewHolder.tvName.setText(goods_name);
@@ -96,16 +111,6 @@ public class ProductAdapter extends BaseAdapter {
                 .placeholder(R.drawable.comment_no_data)
                 .error(R.drawable.comment_no_data)
                 .into(viewHolder.ivIcon);
-
-
-        //设置回调接口
-        if (itemClickListener != null) {
-            //getLayoutPosition()当前点击View的对应在列表中的位置
-            ProductBean.DataBean.ItemsBean itemsBean = data.get(i);
-
-            itemClickListener.onItemClick(itemsBean);
-        }
-
 
         return convertView;
     }
@@ -126,27 +131,12 @@ public class ProductAdapter extends BaseAdapter {
         TextView oldPrice;
         @InjectView(R.id.xian)
         TextView xian;
+        @InjectView(R.id.iv_zhekou)
+        ImageView zhekou;
 
         ViewHolder(View view) {
             ButterKnife.inject(this, view);
         }
     }
 
-    //定义 接口
-
-    public interface OnItemClickListener {
-        /**
-         * 当某条被点击的时候回调
-         *
-         * @param itemsBean
-         */
-        void onItemClick(ProductBean.DataBean.ItemsBean itemsBean);
-
-    }
-
-    private ProductAdapter.OnItemClickListener itemClickListener;
-
-    public void setOnItemClickListener(ProductAdapter.OnItemClickListener l) {
-        this.itemClickListener = l;
-    }
 }

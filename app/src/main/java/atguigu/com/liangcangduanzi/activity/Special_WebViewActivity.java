@@ -2,7 +2,6 @@ package atguigu.com.liangcangduanzi.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -55,9 +54,6 @@ public class Special_WebViewActivity extends AppCompatActivity {
         webview.loadUrl(url.toString());
 
         tvContent.setText(content);
-
-
-
     }
 
     private void initListerner() {
@@ -71,13 +67,13 @@ public class Special_WebViewActivity extends AppCompatActivity {
 
     }
 
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
+   /* public boolean onKeyDown(int keyCode, KeyEvent event) {
         if ((keyCode == KeyEvent.KEYCODE_BACK) && webview.canGoBack()) {
             webview.goBack(); //goBack()表示返回WebView的上一页面
             return true;
         }
         return false;
     }
-
+*/
 
 }

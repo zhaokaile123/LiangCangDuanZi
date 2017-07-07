@@ -2,7 +2,9 @@ package atguigu.com.liangcangduanzi.fragment.shopFragment_pager_5;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.google.gson.Gson;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -28,6 +30,9 @@ public class HomepageFragment extends BaseFragment {
     @InjectView(R.id.recycleview)
     RecyclerView recycleview;
     private HomeAdapter adapter;
+    private HomeBean homeBean;
+
+    private ImageView iv_go_to_top;
 
     @Override
     public View initView() {
@@ -35,13 +40,14 @@ public class HomepageFragment extends BaseFragment {
         View view = View.inflate(context, R.layout.pager_home, null);
         ButterKnife.inject(this, view);
 
+        iv_go_to_top = (ImageView) view.findViewById(R.id.iv_go_to_top);
+
         return view;
     }
 
     @Override
     public void initData() {
         super.initData();
-
         getDataFromNet();
     }
 
@@ -68,7 +74,7 @@ public class HomepageFragment extends BaseFragment {
 
     private void progressData(String json) {
 
-        HomeBean homeBean = new Gson().fromJson(json, HomeBean.class);
+        homeBean = new Gson().fromJson(json, HomeBean.class);
 
         list = homeBean.getData().getItems().getList();
 
@@ -78,7 +84,40 @@ public class HomepageFragment extends BaseFragment {
 
         recycleview.setLayoutManager(new LinearLayoutManager(context));
 
+        initListener();
+
     }
+
+
+    private void initListener() {
+        adapter.setOnItemClickListener(new HomeAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+
+
+                Log.e("TAG","HomepagerFragment ==  还没做" );
+
+
+               /* //String content = homeBean.getData().getItems().get(position).getTopic_name();
+                Intent intent = new Intent(getActivity(), Special_WebViewActivity.class);
+                intent.putExtra("url",url);
+                //intent.putExtra("content",content);
+                startActivity(intent);
+*/
+            }
+        });
+
+
+        iv_go_to_top.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                recycleview.scrollToPosition(0);
+            }
+        });
+    }
+
+
+
 
     @Override
     public void onDestroyView() {

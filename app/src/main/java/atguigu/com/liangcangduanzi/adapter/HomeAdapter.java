@@ -72,7 +72,7 @@ public class HomeAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
 
        if(getItemViewType(position) == ONE) {
            OneViewHolder oneViewHolder = (OneViewHolder) holder;
@@ -89,6 +89,20 @@ public class HomeAdapter extends RecyclerView.Adapter {
            FourViewHolder fourViewHolder = (FourViewHolder) holder;
            fourViewHolder.setData(data.get(position));
        }
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if(itemClickListener != null){
+                    //getLayoutPosition()当前点击View的对应在列表中的位置
+
+                    itemClickListener.onItemClick(position);
+                }
+
+
+            }
+        });
 
     }
 
@@ -206,5 +220,26 @@ public class HomeAdapter extends RecyclerView.Adapter {
                     .into(iv_right_bottom);
 
         }
+    }
+
+    /**
+     * 监听器
+     */
+    public interface OnItemClickListener{
+        /**
+         * 当某条被点击的时候回调
+         * @param position
+         */
+        public void onItemClick(int position);
+    }
+
+    private  OnItemClickListener itemClickListener;
+
+    /**
+     * 设置item的监听
+     * @param l
+     */
+    public void  setOnItemClickListener(OnItemClickListener l){
+        this.itemClickListener = l;
     }
 }

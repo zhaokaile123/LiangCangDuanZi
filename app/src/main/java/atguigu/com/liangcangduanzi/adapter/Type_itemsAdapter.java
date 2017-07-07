@@ -71,6 +71,7 @@ public class Type_itemsAdapter extends BaseAdapter {
         String discount_price = itemsBean.getDiscount_price();
         if (TextUtils.isEmpty(discount_price)) {
 
+            viewHolder.zhekou.setVisibility(View.GONE);
             viewHolder.xian.setVisibility(View.GONE);
             viewHolder.oldPrice.setVisibility(View.GONE);
             viewHolder.price.setText(itemsBean.getPrice());
@@ -78,6 +79,16 @@ public class Type_itemsAdapter extends BaseAdapter {
         } else {
             viewHolder.xian.setVisibility(View.VISIBLE);
             viewHolder.oldPrice.setVisibility(View.VISIBLE);
+            viewHolder.zhekou.setVisibility(View.VISIBLE);
+
+            String zhekouUrl = itemsBean.getPromotion_imgurl();
+
+            Picasso.with(context)
+                    .load(zhekouUrl)
+                    .placeholder(R.drawable.comment_no_data)
+                    .error(R.drawable.comment_no_data)
+                    .into(viewHolder.zhekou);
+
 
             viewHolder.oldPrice.setText(itemsBean.getPrice());
             viewHolder.price.setText(itemsBean.getDiscount_price());
@@ -118,6 +129,8 @@ public class Type_itemsAdapter extends BaseAdapter {
         TextView oldPrice;
         @InjectView(R.id.xian)
         TextView xian;
+        @InjectView(R.id.iv_zhekou)
+        ImageView zhekou;
 
         ViewHolder(View view) {
             ButterKnife.inject(this, view);

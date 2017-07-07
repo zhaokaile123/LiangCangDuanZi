@@ -1,8 +1,11 @@
 package atguigu.com.liangcangduanzi.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -28,10 +31,12 @@ public class Gift_itemsActivity extends AppCompatActivity {
     @InjectView(R.id.ll_shaixuan)
     LinearLayout llShaixuan;
     @InjectView(R.id.pullToRefreshGridView)
+
     PullToRefreshGridView pullToRefreshGridView;
     private String url;
     private Gift_itemsAdapter adapter;
     private GridView gridView;
+    private GiftAllBean giftAllBean;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,13 +77,30 @@ public class Gift_itemsActivity extends AppCompatActivity {
     }
 
     private void progressData(String json) {
-        GiftAllBean giftAllBean = new Gson().fromJson(json, GiftAllBean.class);
+        giftAllBean = new Gson().fromJson(json, GiftAllBean.class);
 
         adapter = new Gift_itemsAdapter(this, giftAllBean.getData().getItems());
 
         gridView.setAdapter(adapter);
         pullToRefreshGridView.onRefreshComplete();
 
+        iniListener();
+
+    }
+
+    private int id;
+    private void iniListener() {
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                id = Integer.parseInt(giftAllBean.getData().getItems().get(i).getGoods_id());
+                Intent intent = new Intent(Gift_itemsActivity.this,GoodsInfoActivity.class);
+                intent.putExtra("id",id);
+                startActivity(intent);
+
+            }
+        });
     }
 
 

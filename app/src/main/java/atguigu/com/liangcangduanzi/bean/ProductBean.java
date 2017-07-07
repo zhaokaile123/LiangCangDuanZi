@@ -1,12 +1,13 @@
 package atguigu.com.liangcangduanzi.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by ASUS on 2017/7/7.
  */
 
-public class ProductBean {
+public class ProductBean implements Serializable{
 
     /**
      * meta : {"status":0,"server_time":"2017-07-07 18:35:28","account_id":0,"cost":0.002633810043335,"errdata":null,"errmsg":""}
@@ -42,7 +43,7 @@ public class ProductBean {
         this.data = data;
     }
 
-    public static class MetaBean {
+    public static class MetaBean implements Serializable{
         /**
          * status : 0
          * server_time : 2017-07-07 18:35:28
@@ -108,7 +109,7 @@ public class ProductBean {
         }
     }
 
-    public static class DataBean {
+    public static class DataBean implements Serializable{
         /**
          * has_more : true
          * num_items : 36430
@@ -143,7 +144,7 @@ public class ProductBean {
             this.items = items;
         }
 
-        public static class ItemsBean {
+        public static class ItemsBean implements Serializable {
             /**
              * goods_id : 255545
              * goods_image : http://imgs-qn.iliangcang.com/ware/goods/big/2/255/255545.jpg
@@ -308,7 +309,7 @@ public class ProductBean {
                 this.shop_price = shop_price;
             }
 
-            public static class BrandInfoBean {
+            public static class BrandInfoBean implements Serializable{
                 /**
                  * brand_id :
                  * brand_name :

@@ -53,7 +53,7 @@ public class GiftFragment extends BaseFragment {
     }
 
     @OnClick({R.id.iv_jingxuan, R.id.iv_jieri, R.id.iv_aiqing, R.id.iv_shengri,
-              R.id.iv_pengyou, R.id.iv_haizi, R.id.iv_fumu,R.id.iv_tixing})
+              R.id.iv_pengyou, R.id.iv_haizi, R.id.iv_fumu})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_jingxuan:
@@ -77,13 +77,22 @@ public class GiftFragment extends BaseFragment {
             case R.id.iv_fumu:
                 url = JieKouUtils.FUMU;
                 break;
-            case R.id.iv_tixing:
-                startActivity(new Intent(getActivity(), LoginActiviy.class));
-                break;
         }
 
         Intent intent = new Intent(getActivity(), Gift_itemsActivity.class);
         intent.putExtra("url",url);
         startActivity(intent);
+    }
+
+    @Override
+    public void initData() {
+        super.initData();
+
+        ivTixing.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                context.startActivity(new Intent(context, LoginActiviy.class));
+            }
+        });
     }
 }

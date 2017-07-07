@@ -2,6 +2,7 @@ package atguigu.com.liangcangduanzi.fragment.brand_produact;
 
 import android.content.Intent;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.GridView;
 
 import com.google.gson.Gson;
@@ -13,6 +14,7 @@ import java.util.List;
 
 import atguigu.com.liangcangduanzi.R;
 import atguigu.com.liangcangduanzi.activity.Brand_itemActivity;
+import atguigu.com.liangcangduanzi.activity.GoodsInfoActivity;
 import atguigu.com.liangcangduanzi.adapter.ProductAdapter;
 import atguigu.com.liangcangduanzi.base.BaseFragment;
 import atguigu.com.liangcangduanzi.bean.ProductBean;
@@ -33,6 +35,9 @@ public class ProductFragment extends BaseFragment {
     private GridView gridview;
     private ProductAdapter adapter;
 
+
+    private List<ProductBean.DataBean.ItemsBean> items;
+
     @Override
     public View initView() {
         View view = View.inflate(context, R.layout.brand_product, null);
@@ -48,21 +53,29 @@ public class ProductFragment extends BaseFragment {
 
         Brand_itemActivity activity = (Brand_itemActivity) getActivity();
         url = activity.url;
+        adapter = new ProductAdapter(getActivity());
 
         getDataFromNet();
         initListener();
+
     }
 
     //点击跳转 ingfoActivity
     private void initListener() {
 
-        adapter.setOnItemClickListener(new ProductAdapter.OnItemClickListener() {
+        gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(ProductBean.DataBean.ItemsBean itemsBean) {
-                Intent intent = new Intent();
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(getActivity(), GoodsInfoActivity.class);
+                if(items!= null && items.size() > 0) {
+                    ProductBean.DataBean.ItemsBean itemsBean = items.get(0);
+                    intent.putExtra("items", itemsBean);
+                    startActivity(intent);
+                }
+
+
             }
         });
-
 
     }
 
@@ -88,16 +101,20 @@ public class ProductFragment extends BaseFragment {
 
         ProductBean productBean = new Gson().fromJson(json, ProductBean.class);
 
-        List<ProductBean.DataBean.ItemsBean> items = productBean.getData().getItems();
+        items = productBean.getData().getItems();
 
         if (items != null && items.size() > 0) {
 
-            adapter = new ProductAdapter(getActivity());
             gridview.setAdapter(adapter);
             adapter.refresh(items);
+
+        } else {
+
         }
 
     }
+
+
 
     @Override
     public void onDestroyView() {

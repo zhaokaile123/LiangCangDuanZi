@@ -129,4 +129,11 @@ public class JieKouUtils {
     // 品牌详情的 尾
     public static String END ="&count=20&page=1&sig=430BD99E6C913B8B8C3ED109737ECF15%7C830952120106768&v=1.0";
 
+    //商品详情 tou
+    public static String GOODSINFOHEAD = "http://mobile.iliangcang.com/goods/goodsDetail?app_key=Android&goods_id=";
+
+    //商品详情 尾
+    public static String GOODSINFOEND = "&sig=BF287AF953103F390674E73DDA18CFD8%7C639843030233268&v=1.0";
+
+
 }

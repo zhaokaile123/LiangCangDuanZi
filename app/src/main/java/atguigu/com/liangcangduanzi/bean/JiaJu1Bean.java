@@ -1,12 +1,13 @@
 package atguigu.com.liangcangduanzi.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by ASUS on 2017/7/6.
  */
 
-public class JiaJu1Bean {
+public class JiaJu1Bean implements Serializable{
 
 
     /**
@@ -43,7 +44,7 @@ public class JiaJu1Bean {
         this.data = data;
     }
 
-    public static class MetaBean {
+    public static class MetaBean implements Serializable{
         /**
          * status : 0
          * server_time : 2017-07-06 14:37:42
@@ -109,7 +110,7 @@ public class JiaJu1Bean {
         }
     }
 
-    public static class DataBean {
+    public static class DataBean implements Serializable {
         /**
          * has_more : true
          * num_items : 1328
@@ -144,7 +145,7 @@ public class JiaJu1Bean {
             this.items = items;
         }
 
-        public static class ItemsBean {
+        public static class ItemsBean implements Serializable{
             /**
              * goods_id : 258055
              * goods_image : http://imgs-qn.iliangcang.com/ware/goods/big/2/258/258055.jpg?t=1497525912
@@ -299,7 +300,7 @@ public class JiaJu1Bean {
                 this.brand_info = brand_info;
             }
 
-            public static class BrandInfoBean {
+            public static class BrandInfoBean implements Serializable {
                 /**
                  * brand_id : 819
                  * brand_name : JEX捷古斯
