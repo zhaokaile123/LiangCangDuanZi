@@ -1,0 +1,107 @@
+package atguigu.com.liangcangduanzi.fragment.brand_produact;
+
+import android.content.Intent;
+import android.view.View;
+import android.widget.GridView;
+
+import com.google.gson.Gson;
+import com.handmark.pulltorefresh.library.PullToRefreshGridView;
+import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.callback.StringCallback;
+
+import java.util.List;
+
+import atguigu.com.liangcangduanzi.R;
+import atguigu.com.liangcangduanzi.activity.Brand_itemActivity;
+import atguigu.com.liangcangduanzi.adapter.ProductAdapter;
+import atguigu.com.liangcangduanzi.base.BaseFragment;
+import atguigu.com.liangcangduanzi.bean.ProductBean;
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+import okhttp3.Call;
+
+/**
+ * Created by ASUS on 2017/7/7.
+ */
+
+public class ProductFragment extends BaseFragment {
+
+    @InjectView(R.id.pullToRefreshGridView)
+    PullToRefreshGridView pullToRefreshGridView;
+
+    private String url;
+    private GridView gridview;
+    private ProductAdapter adapter;
+
+    @Override
+    public View initView() {
+        View view = View.inflate(context, R.layout.brand_product, null);
+        ButterKnife.inject(this, view);
+        return view;
+    }
+
+    @Override
+    public void initData() {
+        super.initData();
+
+        gridview = pullToRefreshGridView.getRefreshableView();
+
+        Brand_itemActivity activity = (Brand_itemActivity) getActivity();
+        url = activity.url;
+
+        getDataFromNet();
+        initListener();
+    }
+
+    //点击跳转 ingfoActivity
+    private void initListener() {
+
+        adapter.setOnItemClickListener(new ProductAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(ProductBean.DataBean.ItemsBean itemsBean) {
+                Intent intent = new Intent();
+            }
+        });
+
+
+    }
+
+    private void getDataFromNet() {
+        OkHttpUtils
+                .get()
+                .url(url)
+                .build()
+                .execute(new StringCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+
+                    }
+
+                    @Override
+                    public void onResponse(String response, int id) {
+                        progressData(response);
+                    }
+                });
+    }
+
+    private void progressData(String json) {
+
+        ProductBean productBean = new Gson().fromJson(json, ProductBean.class);
+
+        List<ProductBean.DataBean.ItemsBean> items = productBean.getData().getItems();
+
+        if (items != null && items.size() > 0) {
+
+            adapter = new ProductAdapter(getActivity());
+            gridview.setAdapter(adapter);
+            adapter.refresh(items);
+        }
+
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.reset(this);
+    }
+}

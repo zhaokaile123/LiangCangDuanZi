@@ -1,12 +1,13 @@
 package atguigu.com.liangcangduanzi.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by ASUS on 2017/7/6.
  */
 
-public class BrandBean {
+public class BrandBean implements Serializable {
 
     /**
      * meta : {"status":0,"server_time":"2017-07-06 18:26:31","account_id":0,"cost":0.006054162979126,"errdata":null,"errmsg":""}
@@ -42,7 +43,7 @@ public class BrandBean {
         this.data = data;
     }
 
-    public static class MetaBean {
+    public static class MetaBean implements Serializable{
         /**
          * status : 0
          * server_time : 2017-07-06 18:26:31
@@ -108,7 +109,7 @@ public class BrandBean {
         }
     }
 
-    public static class DataBean {
+    public static class DataBean implements Serializable{
         /**
          * has_more : true
          * num_items : 736
@@ -143,7 +144,7 @@ public class BrandBean {
             this.items = items;
         }
 
-        public static class ItemsBean {
+        public static class ItemsBean implements Serializable{
             /**
              * brand_id : 841
              * brand_name : HAZE Collection

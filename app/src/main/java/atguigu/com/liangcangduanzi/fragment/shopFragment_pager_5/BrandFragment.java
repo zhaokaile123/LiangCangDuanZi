@@ -1,6 +1,8 @@
 package atguigu.com.liangcangduanzi.fragment.shopFragment_pager_5;
 
+import android.content.Intent;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.google.gson.Gson;
@@ -11,8 +13,8 @@ import com.zhy.http.okhttp.callback.StringCallback;
 import java.util.List;
 
 import atguigu.com.liangcangduanzi.R;
+import atguigu.com.liangcangduanzi.activity.Brand_itemActivity;
 import atguigu.com.liangcangduanzi.adapter.BrandAdapter;
-import atguigu.com.liangcangduanzi.adapter.Pager_typeAdapter;
 import atguigu.com.liangcangduanzi.base.BaseFragment;
 import atguigu.com.liangcangduanzi.bean.BrandBean;
 import atguigu.com.liangcangduanzi.utils.JieKouUtils;
@@ -45,7 +47,6 @@ public class BrandFragment extends BaseFragment {
         return view;
 
     }
-
 
     @Override
     public void initData() {
@@ -92,12 +93,19 @@ public class BrandFragment extends BaseFragment {
     }
 
     private void initListener() {
-        adapter.setOnItemClickListener(new Pager_typeAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(int position) {
 
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(getActivity(), Brand_itemActivity.class);
+                intent.putExtra("id", items.get(i-1).getBrand_id());
+                intent.putExtra("position",i-1);
+                intent.putExtra("image",items.get(i-1).getBrand_logo());
+                intent.putExtra("brandname",items.get(i-1).getBrand_name());
+                startActivity(intent);
             }
         });
+
     }
 
     @Override

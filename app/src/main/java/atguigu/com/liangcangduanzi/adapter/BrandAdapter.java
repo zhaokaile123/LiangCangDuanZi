@@ -78,17 +78,6 @@ public class BrandAdapter extends BaseAdapter {
                 .into(viewHolder.ivIcon);
 
 
-        itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(itemClickListener != null){
-                    //getLayoutPosition()当前点击View的对应在列表中的位置
-                    itemClickListener.onItemClick(position);
-                }
-            }
-        });
-
-
         return convertView;
     }
 
@@ -104,21 +93,5 @@ public class BrandAdapter extends BaseAdapter {
             ButterKnife.inject(this, view);
 
         }
-    }
-
-    //定义 接口
-
-    public interface OnItemClickListener{
-        /**
-         * 当某条被点击的时候回调
-         * @param position
-         */
-        void onItemClick(int position);
-    }
-
-    private Pager_typeAdapter.OnItemClickListener itemClickListener;
-
-    public void  setOnItemClickListener(Pager_typeAdapter.OnItemClickListener l){
-        this.itemClickListener = l;
     }
 }

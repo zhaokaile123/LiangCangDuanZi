@@ -10,36 +10,40 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import atguigu.com.liangcangduanzi.R;
-import atguigu.com.liangcangduanzi.bean.JiaJu1Bean;
+import atguigu.com.liangcangduanzi.bean.ProductBean;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
 /**
- * Created by ASUS on 2017/7/6.
+ * Created by ASUS on 2017/7/7.
  */
 
-public class Type_itemsAdapter extends BaseAdapter {
-
-
+public class ProductAdapter extends BaseAdapter {
 
     private Context context;
-    List<JiaJu1Bean.DataBean.ItemsBean> data;
 
+    private List<ProductBean.DataBean.ItemsBean> data = new ArrayList<>();
 
-    public Type_itemsAdapter(Context context, List<JiaJu1Bean.DataBean.ItemsBean> items) {
+    public ProductAdapter(Context context) {
         this.context = context;
-        this.data = items;
     }
 
-
-
+    public void refresh(List<ProductBean.DataBean.ItemsBean> items) {
+        //校验
+        if (items != null && items.size() >= 0) {
+            this.data.clear();
+            this.data.addAll(items);
+            this.notifyDataSetChanged();
+        }
+    }
 
     @Override
     public int getCount() {
-        return data == null ? 0 : data.size();
+        return data.size();
     }
 
     @Override
@@ -53,39 +57,40 @@ public class Type_itemsAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup viewGroup) {
+    public View getView(int i, View convertView, ViewGroup viewGroup) {
+
         ViewHolder viewHolder = null;
         if (convertView == null) {
-            convertView = View.inflate(context, R.layout.item_jiaju1, null);
+            convertView = View.inflate(context, R.layout.item_product, null);
             viewHolder = new ViewHolder(convertView);
             convertView.setTag(viewHolder);
-        } else {
+        }else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        JiaJu1Bean.DataBean.ItemsBean itemsBean = data.get(position);
 
-        viewHolder.tvName.setText(itemsBean.getGoods_name());
-        viewHolder.brandName.setText(itemsBean.getBrand_info().getBrand_name());
-        viewHolder.likeacount.setText(itemsBean.getLike_count());
+        String imageUrl = data.get(i).getGoods_image();
+        String discount_price = data.get(i).getDiscount_price();
+        String like_count = data.get(i).getLike_count();
+        String brand_name = data.get(i).getBrand_info().getBrand_name();
+        String goods_name = data.get(i).getGoods_name();
+        String price = data.get(i).getPrice();
 
-        String discount_price = itemsBean.getDiscount_price();
         if (TextUtils.isEmpty(discount_price)) {
 
             viewHolder.xian.setVisibility(View.GONE);
             viewHolder.oldPrice.setVisibility(View.GONE);
-            viewHolder.price.setText(itemsBean.getPrice());
-
+            viewHolder.price.setText(price);
         } else {
-            viewHolder.xian.setVisibility(View.VISIBLE);
             viewHolder.oldPrice.setVisibility(View.VISIBLE);
-
-            viewHolder.oldPrice.setText(itemsBean.getPrice());
-            viewHolder.price.setText(itemsBean.getDiscount_price());
+            viewHolder.xian.setVisibility(View.VISIBLE);
+            viewHolder.oldPrice.setText(discount_price);
+            viewHolder.price.setText(price);
         }
 
+        viewHolder.tvName.setText(goods_name);
+        viewHolder.brandName.setText(brand_name);
+        viewHolder.likeacount.setText(like_count);
 
-        String imageUrl = itemsBean.getGoods_image();
-        //设置图片
         Picasso.with(context)
                 .load(imageUrl)
                 .placeholder(R.drawable.comment_no_data)
@@ -96,8 +101,11 @@ public class Type_itemsAdapter extends BaseAdapter {
         //设置回调接口
         if (itemClickListener != null) {
             //getLayoutPosition()当前点击View的对应在列表中的位置
-            itemClickListener.onItemClick(position);
+            ProductBean.DataBean.ItemsBean itemsBean = data.get(i);
+
+            itemClickListener.onItemClick(itemsBean);
         }
+
 
         return convertView;
     }
@@ -124,23 +132,21 @@ public class Type_itemsAdapter extends BaseAdapter {
         }
     }
 
-
-//定义 接口
+    //定义 接口
 
     public interface OnItemClickListener {
         /**
          * 当某条被点击的时候回调
          *
-         * @param position
+         * @param itemsBean
          */
-        void onItemClick(int position);
+        void onItemClick(ProductBean.DataBean.ItemsBean itemsBean);
 
     }
 
-    private Pager_typeAdapter.OnItemClickListener itemClickListener;
+    private ProductAdapter.OnItemClickListener itemClickListener;
 
-    public void setOnItemClickListener(Pager_typeAdapter.OnItemClickListener l) {
+    public void setOnItemClickListener(ProductAdapter.OnItemClickListener l) {
         this.itemClickListener = l;
     }
-
 }

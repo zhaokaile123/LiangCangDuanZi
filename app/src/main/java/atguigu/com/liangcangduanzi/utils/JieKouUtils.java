@@ -124,4 +124,9 @@ public class JieKouUtils {
     //父母
     public static String FUMU = "http://mobile.iliangcang.com/goods/goodsList?app_key=Android&count=10&list_id=6&page=1" +
             "&sig=73760B2740FA36D5A273523FBC9295FE%7C285269230036268&v=1.0";
+    // 品牌详情的头
+    public static String HEAD ="http://mobile.iliangcang.com/brand/brandShopList?app_key=Android&brand_id=";
+    // 品牌详情的 尾
+    public static String END ="&count=20&page=1&sig=430BD99E6C913B8B8C3ED109737ECF15%7C830952120106768&v=1.0";
+
 }

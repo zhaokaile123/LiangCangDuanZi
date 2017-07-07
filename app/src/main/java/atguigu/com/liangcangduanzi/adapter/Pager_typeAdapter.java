@@ -109,6 +109,9 @@ public class Pager_typeAdapter extends BaseAdapter {
          * @param position
          */
          void onItemClick(int position);
+
+
+
     }
 
     private  OnItemClickListener itemClickListener;
