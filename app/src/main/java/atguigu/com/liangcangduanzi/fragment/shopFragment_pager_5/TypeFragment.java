@@ -1,11 +1,8 @@
 package atguigu.com.liangcangduanzi.fragment.shopFragment_pager_5;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.GridView;
 import android.widget.Toast;
 
@@ -18,10 +15,10 @@ import com.zhy.http.okhttp.callback.StringCallback;
 import java.util.List;
 
 import atguigu.com.liangcangduanzi.R;
+import atguigu.com.liangcangduanzi.activity.Type_itemsActivity;
 import atguigu.com.liangcangduanzi.adapter.Pager_typeAdapter;
 import atguigu.com.liangcangduanzi.base.BaseFragment;
 import atguigu.com.liangcangduanzi.bean.TypeAllBean;
-import atguigu.com.liangcangduanzi.activity.Type_itemsActivity;
 import atguigu.com.liangcangduanzi.utils.JieKouUtils;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -150,7 +147,7 @@ public class TypeFragment extends BaseFragment {
 
                 Intent intent = new Intent(getActivity(), Type_itemsActivity.class);
                 intent.putExtra("url",url);
-                Log.e("TAG","url111==" + url);
+
                 startActivity(intent);
             }
         });
@@ -219,11 +216,5 @@ public class TypeFragment extends BaseFragment {
         ButterKnife.reset(this);
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // TODO: inflate a fragment view
-        View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        ButterKnife.inject(this, rootView);
-        return rootView;
-    }
+
 }

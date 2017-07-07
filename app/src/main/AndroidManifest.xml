@@ -21,10 +21,10 @@
         </activity>
         <activity android:name=".activity.MainActivity" />
         <activity android:name=".activity.SearchActivity" />
-        <activity android:name=".activity.Type_itemsActivity"
-            >
-
-        </activity>
+        <activity android:name=".activity.Type_itemsActivity" />
+        <activity android:name=".activity.Gift_itemsActivity" />
+        <activity android:name=".activity.LoginActiviy" />
+        <activity android:name=".activity.Special_WebViewActivity"></activity>
     </application>
 
 </manifest>

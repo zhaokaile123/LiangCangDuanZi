@@ -56,16 +56,16 @@ public class HomeAdapter extends RecyclerView.Adapter {
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
        if(viewType == ONE) {
 
-          return new OneViewHolder(context,inflater.inflate(R.layout.pager_home_one,null) );
-          // return new OneViewHolder(context,LayoutInflater.from(context).inflate(R.layout.pager_home_one, parent, false));
+
+         return new OneViewHolder(context,inflater.inflate(R.layout.pager_home_one, parent, false));
 
        }else if(viewType == TWO) {
 
-           return new TwoViewHolder(context, inflater.inflate(R.layout.pager_home_two,null));
+           return new TwoViewHolder(context, inflater.inflate(R.layout.pager_home_two,parent,false));
 
        }else if(viewType == THREE) {
 
-           return new FourViewHolder(context, inflater.inflate(R.layout.pager_home_four,null));
+           return new FourViewHolder(context, inflater.inflate(R.layout.pager_home_four,parent, false));
 
        }
         return null;

@@ -9,6 +9,7 @@ import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
 import atguigu.com.liangcangduanzi.R;
+import atguigu.com.liangcangduanzi.adapter.Pager_typeAdapter;
 import atguigu.com.liangcangduanzi.adapter.SpecialAdapter;
 import atguigu.com.liangcangduanzi.base.BaseFragment;
 import atguigu.com.liangcangduanzi.bean.SpecialBean;
@@ -34,9 +35,7 @@ public class SpecialFragment extends BaseFragment {
 
         View viwe = View.inflate(context, R.layout.pager_special, null);
         ButterKnife.inject(this, viwe);
-
         listview = list.getRefreshableView();
-
         return viwe;
     }
 
@@ -45,6 +44,19 @@ public class SpecialFragment extends BaseFragment {
         super.initData();
 
         getDataFromNet();
+
+        initListener();
+    }
+
+    private void initListener() {
+
+        adapter.setOnItemClickListener(new Pager_typeAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                
+            }
+        });
+
     }
 
     private void getDataFromNet() {

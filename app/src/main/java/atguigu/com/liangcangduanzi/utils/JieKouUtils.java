@@ -97,8 +97,31 @@ public class JieKouUtils {
     //达人
     public static String DAREN = "http://mobile.iliangcang.com/user/masterList?app_key=Android&count=18&page=1" +
             "&sig=79F01B94B8EBEFAC8EEB344EE2B20AA2%7C383889010803768&v=1.0";
-
+    //专题
     public static String ZHUANTI = "http://mobile.iliangcang.com/goods/shopSpecial?" +
             "app_key=Android&count=10&page=1&sig=" +
-            "3780CB0808528F7CE99081D295EE8C0F%7C116941220826768&uid=626138098&user_token=0516ed9429352c8e1e3bd11c63ba6f54&v=1.0";
+            "3780CB0808528F7CE99081D295EE8C0F%7C116941220826768&uid=626138098&user_token" +
+            "=0516ed9429352c8e1e3bd11c63ba6f54&v=1.0";
+
+    //礼物 精选
+    public static String JINGXUAN = "http://mobile.iliangcang.com/goods/goodsList?app_key=Android&count=10&list_id=" +
+            "7&page=1&sig=73760B2740FA36D5A273523FBC9295FE%7C285269230036268&v=1.0";
+    //节日
+    public static String JIERI = "http://mobile.iliangcang.com/goods/goodsList?app_key=Android&count=10&list_id=1&page=1" +
+            "&sig=DFD7151CC9D607E396FE108FE270FFF3%7C366534120395468&v=1.0";
+    //爱情
+    public static String AIQING = "http://mobile.iliangcang.com/goods/goodsList?app_key=Android&count=10&list_id=2&page=1" +
+            "&sig=73760B2740FA36D5A273523FBC9295FE%7C285269230036268&v=1.0";
+    //生日
+    public static String SHENGTI = "http://mobile.iliangcang.com/goods/goodsList?app_key=Android&count=10&list_id=3&page=1" +
+            "&sig=73760B2740FA36D5A273523FBC9295FE%7C285269230036268&v=1.0";
+    //朋友
+    public static String PENGYOU = "http://mobile.iliangcang.com/goods/goodsList?app_key=Android&count=10&list_id=4&page=1" +
+            "&sig=73760B2740FA36D5A273523FBC9295FE%7C285269230036268&v=1.0";
+    //孩子
+    public static String HAIZI = "http://mobile.iliangcang.com/goods/goodsList?app_key=Android&count=10&list_id=5&page=1" +
+            "&sig=73760B2740FA36D5A273523FBC9295FE%7C285269230036268&v=1.0";
+    //父母
+    public static String FUMU = "http://mobile.iliangcang.com/goods/goodsList?app_key=Android&count=10&list_id=6&page=1" +
+            "&sig=73760B2740FA36D5A273523FBC9295FE%7C285269230036268&v=1.0";
 }
