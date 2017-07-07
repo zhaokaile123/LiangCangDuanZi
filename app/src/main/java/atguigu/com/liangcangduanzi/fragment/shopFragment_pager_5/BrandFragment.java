@@ -12,6 +12,7 @@ import java.util.List;
 
 import atguigu.com.liangcangduanzi.R;
 import atguigu.com.liangcangduanzi.adapter.BrandAdapter;
+import atguigu.com.liangcangduanzi.adapter.Pager_typeAdapter;
 import atguigu.com.liangcangduanzi.base.BaseFragment;
 import atguigu.com.liangcangduanzi.bean.BrandBean;
 import atguigu.com.liangcangduanzi.utils.JieKouUtils;
@@ -31,6 +32,7 @@ public class BrandFragment extends BaseFragment {
     private ListView lv;
 
     private BrandAdapter adapter;
+    private List<BrandBean.DataBean.ItemsBean> items;
 
 
     @Override
@@ -50,7 +52,6 @@ public class BrandFragment extends BaseFragment {
         super.initData();
 
         getDataFromNet();
-
 
     }
 
@@ -78,7 +79,7 @@ public class BrandFragment extends BaseFragment {
     private void progressData(String json) {
 
         BrandBean brandBean = new Gson().fromJson(json, BrandBean.class);
-        List<BrandBean.DataBean.ItemsBean> items = brandBean.getData().getItems();
+        items = brandBean.getData().getItems();
 
         adapter = new BrandAdapter(context);
 
@@ -86,7 +87,17 @@ public class BrandFragment extends BaseFragment {
 
         adapter.refresh(items);
 
+        initListener();
 
+    }
+
+    private void initListener() {
+        adapter.setOnItemClickListener(new Pager_typeAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+
+            }
+        });
     }
 
     @Override

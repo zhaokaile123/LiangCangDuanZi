@@ -84,7 +84,6 @@ public class Pager_typeAdapter extends BaseAdapter {
                     //getLayoutPosition()当前点击View的对应在列表中的位置
                     itemClickListener.onItemClick(position);
 
-
                 }
             }
         });

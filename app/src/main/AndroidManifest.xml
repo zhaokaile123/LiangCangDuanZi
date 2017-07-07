@@ -24,7 +24,8 @@
         <activity android:name=".activity.Type_itemsActivity" />
         <activity android:name=".activity.Gift_itemsActivity" />
         <activity android:name=".activity.LoginActiviy" />
-        <activity android:name=".activity.Special_WebViewActivity"></activity>
+        <activity android:name=".activity.Special_WebViewActivity" />
+        <activity android:name=".activity.Brand_itemActivity"></activity>
     </application>
 
 </manifest>

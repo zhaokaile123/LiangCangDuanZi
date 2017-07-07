@@ -1,5 +1,6 @@
 package atguigu.com.liangcangduanzi.fragment.shopFragment_pager_5;
 
+import android.content.Intent;
 import android.view.View;
 import android.widget.ListView;
 
@@ -9,6 +10,7 @@ import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
 import atguigu.com.liangcangduanzi.R;
+import atguigu.com.liangcangduanzi.activity.Special_WebViewActivity;
 import atguigu.com.liangcangduanzi.adapter.Pager_typeAdapter;
 import atguigu.com.liangcangduanzi.adapter.SpecialAdapter;
 import atguigu.com.liangcangduanzi.base.BaseFragment;
@@ -29,6 +31,7 @@ public class SpecialFragment extends BaseFragment {
 
     private ListView listview;
     private SpecialAdapter adapter;
+    private SpecialBean specialBean;
 
     @Override
     public View initView() {
@@ -45,7 +48,7 @@ public class SpecialFragment extends BaseFragment {
 
         getDataFromNet();
 
-        initListener();
+
     }
 
     private void initListener() {
@@ -53,7 +56,13 @@ public class SpecialFragment extends BaseFragment {
         adapter.setOnItemClickListener(new Pager_typeAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                
+                String url = specialBean.getData().getItems().get(position).getTopic_url();
+                String content = specialBean.getData().getItems().get(position).getTopic_name();
+                Intent intent = new Intent(getActivity(), Special_WebViewActivity.class);
+                intent.putExtra("url",url);
+                intent.putExtra("content",content);
+                startActivity(intent);
+
             }
         });
 
@@ -80,13 +89,16 @@ public class SpecialFragment extends BaseFragment {
     }
 
     private void progressData(String json) {
-        SpecialBean specialBean = new Gson().fromJson(json, SpecialBean.class);
+
+        specialBean = new Gson().fromJson(json, SpecialBean.class);
 
         adapter = new SpecialAdapter(getActivity());
 
         listview.setAdapter(adapter);
 
         adapter.refresh(specialBean.getData().getItems());
+
+        initListener();
 
     }
 
