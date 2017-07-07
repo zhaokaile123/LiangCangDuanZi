@@ -55,6 +55,9 @@ public class ShopFragment extends BaseFragment {
     public void initData() {
         super.initData();
 
+        viewPager.setCurrentItem(2);
+        tablayout.getTabAt(2).select();
+
         initListener();
     }
 

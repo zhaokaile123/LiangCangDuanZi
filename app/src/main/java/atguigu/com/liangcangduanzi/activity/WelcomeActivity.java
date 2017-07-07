@@ -26,7 +26,7 @@ public class WelcomeActivity extends AppCompatActivity {
         AnimationDrawable animation = (AnimationDrawable) imIcon.getBackground();
         animation.start();
 
-        handler.sendEmptyMessageDelayed(0,3000);
+        handler.sendEmptyMessageDelayed(0,2000);
 
     }
 
