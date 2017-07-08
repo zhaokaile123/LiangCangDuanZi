@@ -1,5 +1,6 @@
 package atguigu.com.liangcangduanzi.fragment;
 
+import android.content.Intent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
@@ -13,6 +14,7 @@ import com.zhy.http.okhttp.callback.StringCallback;
 import java.util.List;
 
 import atguigu.com.liangcangduanzi.R;
+import atguigu.com.liangcangduanzi.activity.DarRenActivity;
 import atguigu.com.liangcangduanzi.adapter.DarenAdapter;
 import atguigu.com.liangcangduanzi.base.BaseFragment;
 import atguigu.com.liangcangduanzi.bean.DarenBean;
@@ -51,8 +53,6 @@ public class DaRenFragment extends BaseFragment {
         super.initData();
 
         getDataFromNet();
-
-
 
     }
 
@@ -94,7 +94,16 @@ public class DaRenFragment extends BaseFragment {
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                
+                Intent intent = new Intent(getActivity(),DarRenActivity.class);
+                String username = items.get(i).getUsername();
+                String duty = items.get(i).getDuty();
+                String imageUrl = items.get(i).getUser_images().getOrig();
+
+                intent.putExtra("username",username);
+                intent.putExtra("duty",duty);
+                intent.putExtra("imageUrl",imageUrl);
+
+                startActivity(intent);
             }
         });
     }

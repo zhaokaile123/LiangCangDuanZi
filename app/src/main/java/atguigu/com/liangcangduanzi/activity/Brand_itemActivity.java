@@ -130,7 +130,6 @@ public class Brand_itemActivity extends AppCompatActivity {
     private void selectViewpager(int position) {
         switch (position){
             case 0:
-
                 setDefult();
 
                 story.setTextColor(Color.GRAY);
