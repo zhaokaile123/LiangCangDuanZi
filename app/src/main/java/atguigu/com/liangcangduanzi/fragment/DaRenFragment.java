@@ -1,6 +1,7 @@
 package atguigu.com.liangcangduanzi.fragment;
 
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
 
@@ -34,6 +35,7 @@ public class DaRenFragment extends BaseFragment {
 
     private GridView gridView;
     private DarenAdapter adapter;
+    private List<DarenBean.DataBean.ItemsBean> items;
 
     @Override
     public View initView() {
@@ -41,7 +43,6 @@ public class DaRenFragment extends BaseFragment {
         ButterKnife.inject(this, view);
 
         gridView = pullToRefreshGridView.getRefreshableView();
-
         return view;
     }
 
@@ -50,6 +51,8 @@ public class DaRenFragment extends BaseFragment {
         super.initData();
 
         getDataFromNet();
+
+
 
     }
 
@@ -75,7 +78,7 @@ public class DaRenFragment extends BaseFragment {
     private void progressData(String json) {
         DarenBean darenBean = new Gson().fromJson(json, DarenBean.class);
 
-        List<DarenBean.DataBean.ItemsBean> items = darenBean.getData().getItems();
+        items = darenBean.getData().getItems();
 
         adapter = new DarenAdapter(getActivity());
 
@@ -83,8 +86,17 @@ public class DaRenFragment extends BaseFragment {
 
         adapter.refresh(items);
 
+        initListener();
 
+    }
 
+    private void initListener() {
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                
+            }
+        });
     }
 
     @Override

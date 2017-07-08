@@ -144,7 +144,6 @@ public class TypeFragment extends BaseFragment {
                         break;
                 }
 
-
                 Intent intent = new Intent(getActivity(), Type_itemsActivity.class);
                 intent.putExtra("url",url);
 

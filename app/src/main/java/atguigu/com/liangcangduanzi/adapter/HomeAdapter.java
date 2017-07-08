@@ -1,6 +1,7 @@
 package atguigu.com.liangcangduanzi.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import atguigu.com.liangcangduanzi.R;
+import atguigu.com.liangcangduanzi.activity.Special_WebViewActivity;
 import atguigu.com.liangcangduanzi.bean.HomeBean;
 
 /**
@@ -77,7 +79,7 @@ public class HomeAdapter extends RecyclerView.Adapter {
        if(getItemViewType(position) == ONE) {
            OneViewHolder oneViewHolder = (OneViewHolder) holder;
            //设置数据Banner的数据
-           oneViewHolder.setData(data.get(position).getOne().getPic_url());
+           oneViewHolder.setData(data.get(position).getOne().getPic_url(),data.get(position));
        }else if(getItemViewType(position) == TWO) {
 
            TwoViewHolder twoViewHolder = (TwoViewHolder) holder;
@@ -89,20 +91,6 @@ public class HomeAdapter extends RecyclerView.Adapter {
            FourViewHolder fourViewHolder = (FourViewHolder) holder;
            fourViewHolder.setData(data.get(position));
        }
-
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                if(itemClickListener != null){
-                    //getLayoutPosition()当前点击View的对应在列表中的位置
-
-                    itemClickListener.onItemClick(position);
-                }
-
-
-            }
-        });
 
     }
 
@@ -123,13 +111,27 @@ public class HomeAdapter extends RecyclerView.Adapter {
             iv_one = (ImageView) itemView.findViewById(R.id.iv_one);
         }
 
-        public void setData(String pic_url) {
+        public void setData(String pic_url, final HomeBean.DataBean.ItemsBean.ListBean listBean) {
 
             Picasso.with(context)
                     .load(pic_url)
                     .placeholder(R.drawable.comment_no_data)
                     .error(R.drawable.comment_no_data)
                     .into(iv_one);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    String url = listBean.getOne().getTopic_url();
+                    String content = listBean.getOne().getTopic_name();
+                    Intent intent = new Intent(context, Special_WebViewActivity.class);
+                    intent.putExtra("url",url);
+                    intent.putExtra("content",content);
+                    context.startActivity(intent);
+
+                }
+            });
 
         }
     }
@@ -140,6 +142,7 @@ public class HomeAdapter extends RecyclerView.Adapter {
         private Context context;
         private ImageView iv_left;
         private ImageView iv_right;
+
         public TwoViewHolder(Context context, View itemView) {
             super(itemView);
             this.context = context;
@@ -148,7 +151,7 @@ public class HomeAdapter extends RecyclerView.Adapter {
             iv_right = (ImageView) itemView.findViewById(R.id.iv_right);
         }
 
-        public void setData(HomeBean.DataBean.ItemsBean.ListBean listBean) {
+        public void setData (final HomeBean.DataBean.ItemsBean.ListBean listBean) {
             String imageUrlLeft = listBean.getOne().getPic_url();
             Picasso.with(context)
                     .load(imageUrlLeft)
@@ -163,6 +166,31 @@ public class HomeAdapter extends RecyclerView.Adapter {
                     .placeholder(R.drawable.comment_no_data)
                     .error(R.drawable.comment_no_data)
                     .into(iv_right);
+
+            iv_left.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    String url = listBean.getOne().getTopic_url();
+                    String content = listBean.getOne().getTopic_name();
+                    Intent intent = new Intent(context, Special_WebViewActivity.class);
+                    intent.putExtra("url",url);
+                    intent.putExtra("content",content);
+                    context.startActivity(intent);
+                }
+            });
+
+            iv_right.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    String url = listBean.getTwo().getTopic_url();
+                    String content = listBean.getTwo().getTopic_name();
+                    Intent intent = new Intent(context, Special_WebViewActivity.class);
+                    intent.putExtra("url",url);
+                    intent.putExtra("content",content);
+                    context.startActivity(intent);
+                }
+            });
+
 
         }
     }
@@ -187,7 +215,7 @@ public class HomeAdapter extends RecyclerView.Adapter {
             iv_right_bottom = (ImageView) itemView.findViewById(R.id.iv_right_bottom);
         }
 
-        public void setData(HomeBean.DataBean.ItemsBean.ListBean listBean) {
+        public void setData(final HomeBean.DataBean.ItemsBean.ListBean listBean) {
 
             String lt = listBean.getOne().getPic_url();//左上
             String lb = listBean.getTwo().getPic_url(); //zuo xia
@@ -219,6 +247,54 @@ public class HomeAdapter extends RecyclerView.Adapter {
                     .error(R.drawable.comment_no_data)
                     .into(iv_right_bottom);
 
+            iv_left_top.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    String url = listBean.getOne().getTopic_url();
+                    String content = listBean.getOne().getTopic_name();
+                    Intent intent = new Intent(context, Special_WebViewActivity.class);
+                    intent.putExtra("url",url);
+                    intent.putExtra("content",content);
+                    context.startActivity(intent);
+                }
+            });
+
+            iv_left_bottom.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    String url = listBean.getTwo().getTopic_url();
+                    String content = listBean.getTwo().getTopic_name();
+                    Intent intent = new Intent(context, Special_WebViewActivity.class);
+                    intent.putExtra("url",url);
+                    intent.putExtra("content",content);
+                    context.startActivity(intent);
+                }
+            });
+
+            iv_right_top.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    String url = listBean.getThree().getTopic_url();
+                    String content = listBean.getThree().getTopic_name();
+                    Intent intent = new Intent(context, Special_WebViewActivity.class);
+                    intent.putExtra("url",url);
+                    intent.putExtra("content",content);
+                    context.startActivity(intent);
+
+                }
+            });
+
+            iv_right_bottom.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    String url = listBean.getFour().getTopic_url();
+                    String content = listBean.getFour().getTopic_name();
+                    Intent intent = new Intent(context, Special_WebViewActivity.class);
+                    intent.putExtra("url",url);
+                    intent.putExtra("content",content);
+                    context.startActivity(intent);
+                }
+            });
         }
     }
 

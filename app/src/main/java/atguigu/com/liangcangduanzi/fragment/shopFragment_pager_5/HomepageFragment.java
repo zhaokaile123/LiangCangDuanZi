@@ -1,8 +1,7 @@
 package atguigu.com.liangcangduanzi.fragment.shopFragment_pager_5;
 
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -82,7 +81,23 @@ public class HomepageFragment extends BaseFragment {
 
         recycleview.setAdapter(adapter);
 
-        recycleview.setLayoutManager(new LinearLayoutManager(context));
+        // 设置布局管理器 以及 显示 回到顶部图片出现的位置
+        GridLayoutManager liner = new GridLayoutManager(context,1);
+        liner.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                if(position <= 3){
+                    //隐藏
+                    iv_go_to_top.setVisibility(View.GONE);
+                }else{
+                    //显示
+                    iv_go_to_top.setVisibility(View.VISIBLE);
+                }
+                return 1;
+            }
+        });
+
+        recycleview.setLayoutManager(liner);
 
         initListener();
 
@@ -90,23 +105,6 @@ public class HomepageFragment extends BaseFragment {
 
 
     private void initListener() {
-        adapter.setOnItemClickListener(new HomeAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(int position) {
-
-
-                Log.e("TAG","HomepagerFragment ==  还没做" );
-
-
-               /* //String content = homeBean.getData().getItems().get(position).getTopic_name();
-                Intent intent = new Intent(getActivity(), Special_WebViewActivity.class);
-                intent.putExtra("url",url);
-                //intent.putExtra("content",content);
-                startActivity(intent);
-*/
-            }
-        });
-
 
         iv_go_to_top.setOnClickListener(new View.OnClickListener() {
             @Override

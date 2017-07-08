@@ -26,7 +26,8 @@
         <activity android:name=".activity.LoginActiviy" />
         <activity android:name=".activity.Special_WebViewActivity" />
         <activity android:name=".activity.Brand_itemActivity" />
-        <activity android:name=".activity.GoodsInfoActivity"></activity>
+        <activity android:name=".activity.GoodsInfoActivity" />
+        <activity android:name=".activity.DarRenActivity"></activity>
     </application>
 
 </manifest>
