@@ -28,13 +28,14 @@
         <activity android:name=".activity.Brand_itemActivity" />
         <activity android:name=".activity.GoodsInfoActivity" />
         <activity android:name=".activity.DarRenActivity" />
-        <activity android:name=".activity.PaiXuActivity"
-            android:theme="@style/MuCusntmerStyle"
-
-            />
+        <activity
+            android:name=".activity.PaiXuActivity"
+            android:theme="@style/MuCusntmerStyle" />
         <activity android:name=".activity.DarenActivity2" />
         <activity android:name=".activity.ShouHouActivity" />
-        <activity android:name=".activity.GoodsSelectActivity"></activity>
+        <activity android:name=".activity.GoodsSelectActivity" />
+        <activity android:name=".activity.ShowImageAndGifActivity" />
+        <activity android:name=".activity.GifAndImageActivity"></activity>
     </application>
 
 </manifest>

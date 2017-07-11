@@ -3,7 +3,10 @@ package atguigu.com.liangcangduanzi.app;
 import android.app.Application;
 import android.content.Context;
 
+import com.zhy.http.okhttp.BuildConfig;
 import com.zhy.http.okhttp.OkHttpUtils;
+
+import org.xutils.x;
 
 import java.util.concurrent.TimeUnit;
 
@@ -30,6 +33,9 @@ public class MyApplication extends Application {
                 .build();
 
         OkHttpUtils.initClient(okHttpClient);
+
+        x.Ext.init(this);
+        x.Ext.setDebug(BuildConfig.DEBUG); // 是否输出debug日志, 开启debug会影响性能.
 
     }
 }

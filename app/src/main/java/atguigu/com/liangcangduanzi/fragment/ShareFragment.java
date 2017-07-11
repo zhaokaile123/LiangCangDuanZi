@@ -5,7 +5,7 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 
 import atguigu.com.liangcangduanzi.R;
-import atguigu.com.liangcangduanzi.adapter.BSTuiJianAdapter;
+import atguigu.com.liangcangduanzi.adapter.BSAdapter;
 import atguigu.com.liangcangduanzi.base.BaseFragment;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -25,12 +25,6 @@ public class ShareFragment extends BaseFragment {
     public View initView() {
         View view = View.inflate(context, R.layout.baisi_share, null);
         ButterKnife.inject(this, view);
-        return view;
-    }
-
-    @Override
-    public void initData() {
-        super.initData();
 
         //设置table Layout  与vapager 相互关联
         tablayout.setupWithViewPager(viewPager);
@@ -38,19 +32,21 @@ public class ShareFragment extends BaseFragment {
         // tablayout.setTabMode(TabLayout.MODE_SCROLLABLE);//适合比较多的tab  可以滑动
         //tabMode 是不可以滑动   均分宽度  适合少量的tab 这中模式在布局中设置
 
-        BSTuiJianAdapter adapter = new BSTuiJianAdapter(getFragmentManager());
+
+        //  这个解决了 fragment 不显示的问题  用getChildFragmentManager()
+        BSAdapter adapter = new BSAdapter(getChildFragmentManager());
 
         viewPager.setAdapter(adapter);
 
-        viewPager.setCurrentItem(0);
-        tablayout.getTabAt(0).select();
-
-        initListener();
-
+        return view;
     }
 
-    private void initListener() {
+    @Override
+    public void initData() {
+        super.initData();
 
+       /* viewPager.setCurrentItem(0);
+        tablayout.getTabAt(0).select();*/
     }
 
     @Override

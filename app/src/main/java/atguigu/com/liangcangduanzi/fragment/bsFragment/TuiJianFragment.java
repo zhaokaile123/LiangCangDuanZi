@@ -1,12 +1,14 @@
 package atguigu.com.liangcangduanzi.fragment.bsFragment;
 
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
-import android.widget.ListView;
 
 import com.google.gson.Gson;
-import com.handmark.pulltorefresh.library.PullToRefreshListView;
 
 import atguigu.com.liangcangduanzi.R;
+import atguigu.com.liangcangduanzi.adapter.RecyclerViewAdpater;
 import atguigu.com.liangcangduanzi.base.BaseFragment;
 import atguigu.com.liangcangduanzi.bean.BSTuiJianBean;
 import atguigu.com.liangcangduanzi.utils.JieKouUtils;
@@ -21,17 +23,17 @@ import okhttp3.Call;
 
 public class TuiJianFragment extends BaseFragment {
 
+    @InjectView(R.id.recycleview)
+    RecyclerView recycleview;
 
-    @InjectView(R.id.list)
-    PullToRefreshListView list;
-    private ListView listView;
     private BSTuiJianBean bsTuiJianBean;
+
+    private RecyclerViewAdpater adapter;
 
     @Override
     public View initView() {
         View view = View.inflate(context, R.layout.bs_tuijian, null);
         ButterKnife.inject(this, view);
-        listView = list.getRefreshableView();
 
         return view;
     }
@@ -43,21 +45,32 @@ public class TuiJianFragment extends BaseFragment {
     }
 
     private void getDataFromNet() {
+
         NetUtils.getInstance().get(JieKouUtils.BSTUIJIAN, new NetUtils.OnOkHttpListener() {
             @Override
             public void onResponse(String response, int id) {
                 progressData(response);
+                Log.e("TAG","成功");
             }
 
             @Override
             public void onError(Call call, Exception e, int id) {
+                Log.e("TAG",e.getMessage());
 
             }
         });
     }
 
     private void progressData(String json) {
+
         bsTuiJianBean = new Gson().fromJson(json, BSTuiJianBean.class);
+
+        adapter = new RecyclerViewAdpater(context,bsTuiJianBean.getList());
+
+        recycleview.setAdapter(adapter);
+
+        recycleview.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false));
+
     }
 
     @Override
