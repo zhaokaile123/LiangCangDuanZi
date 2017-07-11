@@ -20,19 +20,20 @@ import java.util.List;
 import atguigu.com.liangcangduanzi.R;
 import atguigu.com.liangcangduanzi.activity.GifAndImageActivity;
 import atguigu.com.liangcangduanzi.bean.BSTuiJianBean;
-import atguigu.com.liangcangduanzi.utils.CircleTransform;
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
 
-
 /**
- * Created by ASUS on 2017/7/11.
+ * 作者：尚硅谷-杨光福 on 2016/11/29 15:38
+ * 微信：yangguangfu520
+ * QQ号：541433511
+ * 作用：xxxx
  */
-
 public class RecyclerViewAdpater extends RecyclerView.Adapter<RecyclerViewAdpater.BaseViewHolder> {
 
     private final Context mContext;
     private final List<BSTuiJianBean.ListBean>  datas;
+
 
     /**
      * 视频
@@ -54,6 +55,7 @@ public class RecyclerViewAdpater extends RecyclerView.Adapter<RecyclerViewAdpate
      */
     private static final int TYPE_GIF = 3;
 
+
     /**
      * 软件推广
      */
@@ -72,12 +74,12 @@ public class RecyclerViewAdpater extends RecyclerView.Adapter<RecyclerViewAdpate
      * @return
      */
     @Override
-    public RecyclerViewAdpater.BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return initViewHolder(viewType);
     }
 
-    private RecyclerViewAdpater.BaseViewHolder initViewHolder(int itemViewType) {
-        RecyclerViewAdpater.BaseViewHolder viewHolder = null;
+    private BaseViewHolder initViewHolder(int itemViewType) {
+        BaseViewHolder viewHolder = null;
         View convertView = null;
         switch (itemViewType) {
             case TYPE_VIDEO://视频
@@ -112,7 +114,7 @@ public class RecyclerViewAdpater extends RecyclerView.Adapter<RecyclerViewAdpate
      * @param position
      */
     @Override
-    public void onBindViewHolder(RecyclerViewAdpater.BaseViewHolder holder, int position) {
+    public void onBindViewHolder(BaseViewHolder holder, int position) {
         holder.setData(datas.get(position));
 
     }
@@ -153,7 +155,7 @@ public class RecyclerViewAdpater extends RecyclerView.Adapter<RecyclerViewAdpate
     }
 
 
-    class ADHolder extends BaseViewHolder{
+     class ADHolder extends BaseViewHolder{
         TextView tvContext;
         ImageView ivImageIcon;
         Button btnInstall;
@@ -171,11 +173,11 @@ public class RecyclerViewAdpater extends RecyclerView.Adapter<RecyclerViewAdpate
         }
     }
 
+
+
     class GifHolder extends BaseViewHolder {
         TextView tvContext;
         ImageView ivImageGif;
-
-        //这个 是xutil 的 类
         private ImageOptions imageOptions;
 
         GifHolder(View convertView) {
@@ -246,78 +248,27 @@ public class RecyclerViewAdpater extends RecyclerView.Adapter<RecyclerViewAdpate
             //设置文本-所有的都有
             tvContext.setText(mediaItem.getText() + "_" + mediaItem.getType());
             //图片特有的
+
+
+
             ivImageIcon.setImageResource(R.drawable.ic_present_5);
             if (mediaItem.getImage() != null && mediaItem.getImage() != null && mediaItem.getImage().getThumbnail_small() != null) {
                 Picasso.with(mContext).
                         load(mediaItem.getImage().getThumbnail_small().get(0))
                         .into(ivImageIcon);
-
             }
-
-
 
 
         }
     }
 
-    class VideoHoder extends BaseViewHolder {
-        atguigu.com.liangcangduanzi.utils.Utils utils;
-        TextView tvContext;
-        JCVideoPlayerStandard jcvVideoplayer;
-        TextView tvPlayNums;
-        TextView tvVideoDuration;
-        ImageView ivCommant;
-        TextView tvCommantContext;
 
-        VideoHoder(View convertView) {
-            //这个方法一定要写
-            super(convertView);
-            //中间公共部分 -所有的都有
-            tvContext = (TextView) convertView.findViewById(R.id.tv_context);
-            utils = new atguigu.com.liangcangduanzi.utils.Utils();
-            tvPlayNums = (TextView) convertView.findViewById(R.id.tv_play_nums);
-            tvVideoDuration = (TextView) convertView.findViewById(R.id.tv_video_duration);
-            ivCommant = (ImageView) convertView.findViewById(R.id.iv_commant);
-            tvCommantContext = (TextView) convertView.findViewById(R.id.tv_commant_context);
-            jcvVideoplayer = (JCVideoPlayerStandard) convertView.findViewById(R.id.jcv_videoplayer);
-        }
-
-        /**
-         * 绑定数据
-         *
-         * @param mediaItem
-         */
-        public void setData(BSTuiJianBean.ListBean mediaItem) {
-            super.setData(mediaItem);
-
-            //设置文本-所有的都有,只有广告没有哦
-            tvContext.setText(mediaItem.getText() + "_" + mediaItem.getType());
-            //视频特有的------------------------
-            //第一个参数是视频播放地址，第二个参数是显示封面的地址，第三参数是标题
-            boolean setUp = jcvVideoplayer.setUp(
-                    mediaItem.getVideo().getVideo().get(0), JCVideoPlayer.SCREEN_LAYOUT_LIST,
-                    "");
-            //加载图片
-            if (setUp) {
-//                ImageLoader.getInstance().displayImage(mediaItem.getVideo().getThumbnail().get(0),
-//                        jcvVideoplayer.thumbImageView);
-                Picasso.
-                        with(mContext)
-                        .load(mediaItem.getVideo()
-                        .getThumbnail().get(0))
-                        .into(jcvVideoplayer.thumbImageView);
-            }
-            tvPlayNums.setText(mediaItem.getVideo().getPlaycount() + "次播放");
-            tvVideoDuration.setText(utils.stringForTime(mediaItem.getVideo().getDuration() * 1000) + "");
-        }
-    }
-
-    class BaseViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    class BaseViewHolder extends RecyclerView.ViewHolder{
 
         ImageView ivHeadpic;
         TextView tvName;
         TextView tvTimeRefresh;
-        //ImageView ivRightMore;
+       // ImageView ivRightMore;
         ImageView ivVideoKind;
         TextView tvVideoKindText;
         TextView tvShenheDingNumber;
@@ -325,18 +276,13 @@ public class RecyclerViewAdpater extends RecyclerView.Adapter<RecyclerViewAdpate
         TextView tvPostsNumber;
         LinearLayout llDownload;
 
-        TextView tvDing;
-        TextView tvCai;
-        TextView tvShare;
-        TextView tvpingLun;
-
         public BaseViewHolder(View convertView) {
             super(convertView);
             //公共的-头部
             ivHeadpic = (ImageView) convertView.findViewById(R.id.iv_headpic);
             tvName = (TextView) convertView.findViewById(R.id.tv_name);
             tvTimeRefresh = (TextView) convertView.findViewById(R.id.tv_time_refresh);
-            //ivRightMore = (ImageView) convertView.findViewById(R.id.iv_right_more);
+           // ivRightMore = (ImageView) convertView.findViewById(R.id.iv_right_more);
             //公共部分-bottom
             ivVideoKind = (ImageView) convertView.findViewById(R.id.iv_video_kind);
             tvVideoKindText = (TextView) convertView.findViewById(R.id.tv_video_kind_text);
@@ -345,12 +291,6 @@ public class RecyclerViewAdpater extends RecyclerView.Adapter<RecyclerViewAdpate
             tvPostsNumber = (TextView) convertView.findViewById(R.id.tv_posts_number);
             llDownload = (LinearLayout) convertView.findViewById(R.id.ll_download);
 
-            tvDing = (TextView) convertView.findViewById(R.id.tv_ding);
-            tvCai = (TextView) convertView.findViewById(R.id.tv_cai);
-            tvShare = (TextView) convertView.findViewById(R.id.tv_share);
-            tvpingLun = (TextView) convertView.findViewById(R.id.tv_pinglun);
-
-
             //设置item的点击事件
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -358,15 +298,15 @@ public class RecyclerViewAdpater extends RecyclerView.Adapter<RecyclerViewAdpate
                     BSTuiJianBean.ListBean listEntity = datas.get(getLayoutPosition());
                     if(listEntity !=null ){
                         //3.传递url  跳转到 webview
-                       // Intent intent = new Intent(mContext,ShowImageAndGifActivity.class);
+                        // Intent intent = new Intent(mContext,ShowImageAndGifActivity.class);
                         Intent intent = new Intent(mContext, GifAndImageActivity.class);
                         if(listEntity.getType().equals("gif")){
-                           // String url = listEntity.getGif().getImages().get(0);
+                            // String url = listEntity.getGif().getImages().get(0);
                             String url = datas.get(getLayoutPosition()).getShare_url();
                             intent.putExtra("url",url);
                             mContext.startActivity(intent);
                         }else if(listEntity.getType().equals("image")){
-                           // String url = listEntity.getImage().getBig().get(0);
+                            // String url = listEntity.getImage().getBig().get(0);
                             String url = datas.get(getLayoutPosition()).getShare_url();
                             intent.putExtra("url",url);
                             mContext.startActivity(intent);
@@ -374,24 +314,11 @@ public class RecyclerViewAdpater extends RecyclerView.Adapter<RecyclerViewAdpate
                     }
                 }
             });
-
-            tvDing.setOnClickListener(this);
-            tvCai.setOnClickListener(this);
-            tvShare.setOnClickListener(this);
-            tvpingLun.setOnClickListener(this);
-
         }
 
         public void setData(BSTuiJianBean.ListBean mediaItem) {
             if (mediaItem.getU() != null && mediaItem.getU().getHeader() != null && mediaItem.getU().getHeader().get(0) != null) {
                 x.image().bind(ivHeadpic, mediaItem.getU().getHeader().get(0));
-                Picasso.
-                        with(mContext)
-                        .load(mediaItem.getU().getHeader().get(0))
-                        .transform(new CircleTransform())
-                        .into(ivHeadpic);
-
-
             }
             if (mediaItem.getU() != null && mediaItem.getU().getName() != null) {
                 tvName.setText(mediaItem.getU().getName() + "");
@@ -410,54 +337,63 @@ public class RecyclerViewAdpater extends RecyclerView.Adapter<RecyclerViewAdpate
             }
 
             //设置点赞，踩,转发
-
             tvShenheDingNumber.setText(mediaItem.getUp());
             tvShenheCaiNumber.setText(mediaItem.getDown() + "");
             tvPostsNumber.setText(mediaItem.getForward() + "");
 
         }
-
-        public void setDefult(){
-            tvDing.setClickable(false);
-            tvCai.setClickable(false);
-            tvShare.setClickable(false);
-            tvpingLun.setClickable(false);
-        };
-
-
-        @Override
-        public void onClick(View view) {
-            switch (view.getId()){
-                case R.id.tv_ding:
-
-                    setDefult();
-                    tvDing.setBackgroundResource(R.drawable.shenhe_ding_pic_an);
-                    break;
-                case R.id.tv_cai:
-
-                    setDefult();
-                    tvCai.setBackgroundResource(R.drawable.shenhe_cai_pic_an);
-                    break;
-                
-                case R.id.tv_share:
-
-                    setDefult();
-                    tvShare.setBackgroundResource(R.drawable.forward_press);
-                    
-                    break;
-
-                case R.id.tv_pinglun:
-
-                    setDefult();
-                    tvpingLun.setBackgroundResource(R.drawable.commend_press);
-
-                    break;
-            }
-
-        }
     }
 
+    class VideoHoder extends BaseViewHolder {
 
+        TextView tvContext;
+        JCVideoPlayerStandard jcvVideoplayer;
+        TextView tvPlayNums;
+        TextView tvVideoDuration;
+        ImageView ivCommant;
+        TextView tvCommantContext;
 
+        VideoHoder(View convertView) {
+            //这个方法一定要写
+            super(convertView);
+            //中间公共部分 -所有的都有
+            tvContext = (TextView) convertView.findViewById(R.id.tv_context);
 
+            tvPlayNums = (TextView) convertView.findViewById(R.id.tv_play_nums);
+            tvVideoDuration = (TextView) convertView.findViewById(R.id.tv_video_duration);
+            ivCommant = (ImageView) convertView.findViewById(R.id.iv_commant);
+            tvCommantContext = (TextView) convertView.findViewById(R.id.tv_commant_context);
+            jcvVideoplayer = (JCVideoPlayerStandard) convertView.findViewById(R.id.jcv_videoplayer);
+        }
+
+        /**
+         * 绑定数据
+         *
+         * @param mediaItem
+         */
+        public void setData(BSTuiJianBean.ListBean mediaItem) {
+            super.setData(mediaItem);
+
+            //设置文本-所有的都有,只有广告没有哦
+            tvContext.setText(mediaItem.getText() + "_" + mediaItem.getType());
+
+            //视频特有的------------------------
+            //第一个参数是视频播放地址，第二个参数是显示封面的地址，第三参数是标题
+            boolean setUp = jcvVideoplayer.setUp(
+                    mediaItem.getVideo().getVideo().get(0), JCVideoPlayer.SCREEN_LAYOUT_LIST,
+                    "");
+            //加载图片
+            if (setUp) {
+//                ImageLoader.getInstance().displayImage(mediaItem.getVideo().getThumbnail().get(0),
+//                        jcvVideoplayer.thumbImageView);
+                Picasso.
+                        with(mContext)
+                        .load(mediaItem.getVideo()
+                                .getThumbnail().get(0))
+                        .into(jcvVideoplayer.thumbImageView);
+            }
+            tvPlayNums.setText(mediaItem.getVideo().getPlaycount() + "次播放");
+           // tvVideoDuration.setText(Utils.stringForTime(mediaItem.getVideo().getDuration() * 1000) + "");
+        }
+    }
 }

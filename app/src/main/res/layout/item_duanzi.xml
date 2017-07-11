@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#ffffff"
+    android:orientation="vertical">
+
+   <!-- <View
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#55888888" />-->
+
+    <LinearLayout
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/bg_activities_item_end_transparent"
+        android:orientation="vertical"
+       >
+
+        <include layout="@layout/common_user_info" />
+
+        <include layout="@layout/text_middle" />
+
+        <include layout="@layout/common_bottom" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginBottom="10dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:background="#FFF5EE"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <LinearLayout
+
+            android:orientation="horizontal"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="5dp"
+                android:textSize="20dp"
+                android:layout_gravity="center_vertical"
+                android:lineSpacingExtra="8dp"
+                android:id="@+id/tv_name111"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+
+            <TextView
+                android:visibility="gone"
+                android:layout_gravity="center_vertical"
+                android:id="@+id/tv_name1"
+                android:layout_marginTop="5dp"
+                android:textColor="#4169E1"
+                android:text="我是用户"
+                android:textSize="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:visibility="gone"
+                android:layout_gravity="center_vertical"
+                android:lineSpacingExtra="5dp"
+                android:id="@+id/tv_content1"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="5dp"
+                android:text="sadsadsadsadsadsadsa"
+                android:textSize="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:background="#FFF5EE"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_marginBottom="5dp"
+                android:textSize="20dp"
+                android:layout_gravity="center_vertical"
+                android:lineSpacingExtra="8dp"
+                android:id="@+id/tv_name3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:visibility="gone"
+                android:layout_gravity="center_vertical"
+                android:id="@+id/tv_name2"
+                android:layout_marginTop="5dp"
+                android:textColor="#4169E1"
+                android:text="我是用户"
+                android:textSize="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:visibility="gone"
+                android:layout_gravity="center_vertical"
+                android:lineSpacingExtra="5dp"
+                android:id="@+id/tv_content2"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="5dp"
+                android:text="sadsadsadsadsadsadsa"
+                android:textSize="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

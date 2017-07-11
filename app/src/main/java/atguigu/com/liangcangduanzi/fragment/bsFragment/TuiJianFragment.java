@@ -11,7 +11,6 @@ import atguigu.com.liangcangduanzi.R;
 import atguigu.com.liangcangduanzi.adapter.RecyclerViewAdpater;
 import atguigu.com.liangcangduanzi.base.BaseFragment;
 import atguigu.com.liangcangduanzi.bean.BSTuiJianBean;
-import atguigu.com.liangcangduanzi.utils.JieKouUtils;
 import atguigu.com.liangcangduanzi.utils.NetUtils;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -46,7 +45,7 @@ public class TuiJianFragment extends BaseFragment {
 
     private void getDataFromNet() {
 
-        NetUtils.getInstance().get(JieKouUtils.BSTUIJIAN, new NetUtils.OnOkHttpListener() {
+        NetUtils.getInstance().get("http://s.budejie.com/topic/list/jingxuan/1/budejie-android-6.6.3/0-20.json", new NetUtils.OnOkHttpListener() {
             @Override
             public void onResponse(String response, int id) {
                 progressData(response);
