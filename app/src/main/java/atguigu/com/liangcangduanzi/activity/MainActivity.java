@@ -62,9 +62,16 @@ public class MainActivity extends AppCompatActivity {
         //设置RadioGroup的选中监听
         rgMain.setOnCheckedChangeListener(new MyOnCheckedChangeListener());
 
-        //设置默认选择首页
+        //设置默认选择 商店
         rgMain.check(R.id.rb_home);
+
+        //点击 默认 排序的时候进来 在选择达人界面
+        int a = getIntent().getIntExtra("aaa", -1);
+        if(a == 1) {
+            rgMain.check(R.id.rb_community);
+        }
     }
+
 
     private void initFragment() {
         fragments = new ArrayList<>();

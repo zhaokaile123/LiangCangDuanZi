@@ -15,6 +15,7 @@ import java.util.List;
 
 import atguigu.com.liangcangduanzi.R;
 import atguigu.com.liangcangduanzi.activity.DarRenActivity;
+import atguigu.com.liangcangduanzi.activity.PaiXuActivity;
 import atguigu.com.liangcangduanzi.adapter.DarenAdapter;
 import atguigu.com.liangcangduanzi.base.BaseFragment;
 import atguigu.com.liangcangduanzi.bean.DarenBean;
@@ -28,6 +29,7 @@ import okhttp3.Call;
  */
 
 public class DaRenFragment extends BaseFragment {
+
     @InjectView(R.id.search)
     ImageView search;
     @InjectView(R.id.shoppingCar)
@@ -51,9 +53,7 @@ public class DaRenFragment extends BaseFragment {
     @Override
     public void initData() {
         super.initData();
-
         getDataFromNet();
-
     }
 
     private void getDataFromNet() {
@@ -90,6 +90,7 @@ public class DaRenFragment extends BaseFragment {
 
     }
 
+    private int uid;
     private void initListener() {
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -98,14 +99,25 @@ public class DaRenFragment extends BaseFragment {
                 String username = items.get(i).getUsername();
                 String duty = items.get(i).getDuty();
                 String imageUrl = items.get(i).getUser_images().getOrig();
+                uid = Integer.parseInt(items.get(i).getUid());
 
                 intent.putExtra("username",username);
                 intent.putExtra("duty",duty);
                 intent.putExtra("imageUrl",imageUrl);
+                intent.putExtra("uid",uid);
 
                 startActivity(intent);
             }
         });
+
+        //点击排序 按钮
+        shoppingCar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), PaiXuActivity.class));
+            }
+        });
+
     }
 
     @Override

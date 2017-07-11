@@ -3,7 +3,6 @@ package atguigu.com.liangcangduanzi.activity;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.ListFragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -12,20 +11,28 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
+import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.callback.StringCallback;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import atguigu.com.liangcangduanzi.R;
 import atguigu.com.liangcangduanzi.adapter.DaRen_FragmentAdapter;
+import atguigu.com.liangcangduanzi.bean.Daren_ItmsBean;
 import atguigu.com.liangcangduanzi.fragment.darenFragment_pager_4.CommondFragment;
 import atguigu.com.liangcangduanzi.fragment.darenFragment_pager_4.FenSiFragment;
 import atguigu.com.liangcangduanzi.fragment.darenFragment_pager_4.GuanZhuFragment;
+import atguigu.com.liangcangduanzi.fragment.darenFragment_pager_4.LikeFragment;
+import atguigu.com.liangcangduanzi.utils.JieKouUtils;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
+import okhttp3.Call;
 
 public class DarRenActivity extends AppCompatActivity {
 
@@ -76,9 +83,39 @@ public class DarRenActivity extends AppCompatActivity {
     private String name;
     private String duty;
     private String imageUrl;
+    public int uid;
 
     private List<Fragment> fragments;
     private DaRen_FragmentAdapter adapter;
+    private String url;
+    private Daren_ItmsBean daren_itmsBean;
+    private int like_count;
+    private int recommendation_count;
+    private int following_count;
+    private int followed_count;
+
+
+    public String getItemUrl1() {
+        return JieKouUtils.XIHUANHEAN + uid + JieKouUtils.XIHUANWEI;
+    }
+
+    public String getItemUrl2() {
+        return JieKouUtils.TUIJIANTOU + uid + JieKouUtils.TUIJIANWEI ;
+    }
+
+    public String getItemUrl3() {
+        return JieKouUtils.GUANZHUTOU + uid +JieKouUtils.GAUNZHUWEI;
+    }
+
+    public String getItemUrl4() {
+        return JieKouUtils.FENSITOU + uid + JieKouUtils.FEISIWEI;
+    }
+
+    public String itemUrl1;
+    public String itemUrl2 ;
+    public String itemUrl3;
+    public String itemUrl4;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,14 +128,72 @@ public class DarRenActivity extends AppCompatActivity {
         name = getIntent().getStringExtra("username");
         duty = getIntent().getStringExtra("duty");
         imageUrl = getIntent().getStringExtra("imageUrl");
-        Log.e("TAG", "" + duty);
+        uid = getIntent().getIntExtra("uid",-1);
+
+        url = JieKouUtils.XIHUANHEAN + uid + JieKouUtils.XIHUANWEI;
+
+        getItemUrl1();
+        getItemUrl2();
+        getItemUrl3();
+        getItemUrl4();
+
+        getItemUrl1();
+
+        //设置默认
+        setDefult();
+
+
+
 
         initData();
-        initFragment();
+
         initListener();
-        setDefult();
-        swicthPager(0);
+        initFragment();
+        getDataFromNet();
+
+        viewPager.setCurrentItem(1);
+
     }
+
+    private void getDataFromNet() {
+        OkHttpUtils
+                .get()
+                .url(url)
+                .build()
+                .execute(new StringCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+
+                    }
+
+                    @Override
+                    public void onResponse(String response, int id) {
+
+                        progressData(response);
+
+                    }
+                });
+    }
+
+    private void progressData(String json) {
+
+        daren_itmsBean = new Gson().fromJson(json, Daren_ItmsBean.class);
+
+        like_count = Integer.parseInt(daren_itmsBean.getData().getItems().getLike_count());
+        recommendation_count = Integer.parseInt(daren_itmsBean.getData().getItems().getRecommendation_count());
+        following_count = Integer.parseInt(daren_itmsBean.getData().getItems().getFollowing_count());
+        followed_count = Integer.parseInt(daren_itmsBean.getData().getItems().getFollowed_count());
+
+
+
+        likeAcount.setText(like_count+"");
+        tuijianAcount.setText(recommendation_count+"");
+        guanzhuAcount.setText(following_count+"");
+        fensiAcount.setText(followed_count+"");
+
+
+    }
+
 
     private void setDefult() {
 
@@ -137,17 +232,25 @@ public class DarRenActivity extends AppCompatActivity {
 
             }
         });
+
     }
 
     private void swicthPager(int position) {
         switch (position) {
             case 0:
-
                 setDefult();
-
                 tvXihuan.setTextColor(Color.GRAY);
                 likeAcount.setTextColor(Color.GRAY);
                 llXihuan.setBackgroundColor(Color.WHITE);
+
+                if( like_count != 0) {
+                    itemUrl1 = JieKouUtils.XIHUANHEAN + uid + JieKouUtils.XIHUANWEI;
+                    likeFragment.getUrl(itemUrl1);
+                    Log.e("TAG","itemUrl1 == " + itemUrl1 );
+
+                }else {
+
+                }
 
                 break;
             case 1:
@@ -158,6 +261,12 @@ public class DarRenActivity extends AppCompatActivity {
 
                 llTuijian.setBackgroundColor(Color.WHITE);
 
+                if(  recommendation_count!= 0) {
+                    itemUrl2 = JieKouUtils.TUIJIANTOU + uid + JieKouUtils.TUIJIANWEI;
+                }else {
+
+                }
+
                 break;
             case 2:
 
@@ -165,6 +274,14 @@ public class DarRenActivity extends AppCompatActivity {
                 tvGuanzhu.setTextColor(Color.GRAY);
                 guanzhuAcount.setTextColor(Color.GRAY);
                 llguanzhu.setBackgroundColor(Color.WHITE);
+
+                if( following_count != 0) {
+                    itemUrl3 = JieKouUtils.GUANZHUTOU + uid +JieKouUtils.GAUNZHUWEI;
+                    guanzhuFragment.getUrl(itemUrl3);
+
+                }else {
+
+                }
 
                 break;
             case 3:
@@ -174,17 +291,31 @@ public class DarRenActivity extends AppCompatActivity {
                 fensiAcount.setTextColor(Color.GRAY);
                 llFensi.setBackgroundColor(Color.WHITE);
 
+                if( followed_count != 0) {
+                    itemUrl4 = JieKouUtils.FENSITOU + uid + JieKouUtils.FEISIWEI;
+                    fensiFragment.getUrl(itemUrl4);
+
+                }else {
+
+                }
+
                 break;
         }
 
     }
 
+    LikeFragment likeFragment = new LikeFragment();
+    CommondFragment commondFragment = new CommondFragment();
+    GuanZhuFragment guanzhuFragment = new GuanZhuFragment();
+    FenSiFragment fensiFragment = new FenSiFragment();
+
     private void initFragment() {
         fragments = new ArrayList<>();
-        fragments.add(new ListFragment());
-        fragments.add(new CommondFragment());
-        fragments.add(new GuanZhuFragment());
-        fragments.add(new FenSiFragment());
+        fragments.add(likeFragment);
+        fragments.add(commondFragment);
+        fragments.add(guanzhuFragment);
+        fragments.add(fensiFragment);
+
 
         adapter = new DaRen_FragmentAdapter(getSupportFragmentManager(),fragments);
         viewPager.setAdapter(adapter);
@@ -210,26 +341,32 @@ public class DarRenActivity extends AppCompatActivity {
                 finish();
                 break;
             case R.id.bt_guanzhu:
+                Toast.makeText(DarRenActivity.this, "DarRenACtivity", Toast.LENGTH_SHORT).show();
 
                 break;
             case R.id.bt_sixin:
                 break;
             case R.id.ll_xihuan:
                 viewPager.setCurrentItem(0);
+                swicthPager(0);
 
                 break;
             case R.id.ll_tuijian:
                 viewPager.setCurrentItem(1);
+                swicthPager(1);
 
                 break;
             case R.id.llguanzhu:
                 viewPager.setCurrentItem(2);
+                swicthPager(2);
 
                 break;
             case R.id.ll_fensi:
                 viewPager.setCurrentItem(3);
+                swicthPager(3);
 
                 break;
         }
     }
+
 }

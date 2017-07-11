@@ -14,7 +14,7 @@ import java.util.List;
 
 import atguigu.com.liangcangduanzi.R;
 import atguigu.com.liangcangduanzi.activity.Special_WebViewActivity;
-import atguigu.com.liangcangduanzi.bean.HomeBean;
+import atguigu.com.liangcangduanzi.bean.HomeBean1;
 
 /**
  * Created by ASUS on 2017/7/6.
@@ -29,10 +29,14 @@ public class HomeAdapter extends RecyclerView.Adapter {
     private static final int ONE = 0;
     private static final int TWO = 1;
     private static final int THREE = 2;
+    private static final int FOUR = 3;
 
     private LayoutInflater inflater;
-    private List<HomeBean.DataBean.ItemsBean.ListBean> data;
-    public HomeAdapter(Context context, List<HomeBean.DataBean.ItemsBean.ListBean> list) {
+    private List<HomeBean1.DataBean.ItemsBean.ListBeanX> data;
+
+
+    public HomeAdapter(Context context, List<HomeBean1.DataBean.ItemsBean.ListBeanX> list) {
+
         this.context = context;
         this.data = list;
         inflater = LayoutInflater.from(context);
@@ -41,25 +45,28 @@ public class HomeAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemViewType(int position) {
-        if(data.get(position).getHome_type().equals("1")) {
+
+        if(data.get(position).getHome_type() == 1) {
              currentType = ONE;
         }
-        if(data.get(position).getHome_type().equals("2")) {
+        if(data.get(position).getHome_type() == 2) {
             currentType = TWO;
         }
-        if(data.get(position).getHome_type().equals("4")) {
+        if(data.get(position).getHome_type() == 4) {
             currentType = THREE;
+        }if(data.get(position).getHome_type() == 6) {
+            currentType = FOUR;
         }
+
         return currentType;
 
     }
 
+
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
        if(viewType == ONE) {
-
-
-         return new OneViewHolder(context,inflater.inflate(R.layout.pager_home_one, parent, false));
+           return new OneViewHolder(context,inflater.inflate(R.layout.pager_home_one, parent, false));
 
        }else if(viewType == TWO) {
 
@@ -69,12 +76,16 @@ public class HomeAdapter extends RecyclerView.Adapter {
 
            return new FourViewHolder(context, inflater.inflate(R.layout.pager_home_four,parent, false));
 
+       }else if(viewType == FOUR) {
+           return new SixViewHolder(context,inflater.inflate(R.layout.pager_home_one, parent, false));
        }
+
         return null;
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
+
 
        if(getItemViewType(position) == ONE) {
            OneViewHolder oneViewHolder = (OneViewHolder) holder;
@@ -90,13 +101,19 @@ public class HomeAdapter extends RecyclerView.Adapter {
 
            FourViewHolder fourViewHolder = (FourViewHolder) holder;
            fourViewHolder.setData(data.get(position));
+
+       }else if(getItemViewType(position) == FOUR) {
+
+           SixViewHolder sixViewHolder = (SixViewHolder) holder;
+           sixViewHolder.setData(data.get(position).getList().get(0).getPic_url(),data.get(position));
+
        }
 
     }
 
     @Override
     public int getItemCount() {
-        return data.size();
+        return data == null ? 0:data.size();
     }
 
     //单张图片的  viewholoder
@@ -111,7 +128,7 @@ public class HomeAdapter extends RecyclerView.Adapter {
             iv_one = (ImageView) itemView.findViewById(R.id.iv_one);
         }
 
-        public void setData(String pic_url, final HomeBean.DataBean.ItemsBean.ListBean listBean) {
+        public void setData(String pic_url, final HomeBean1.DataBean.ItemsBean.ListBeanX listBean) {
 
             Picasso.with(context)
                     .load(pic_url)
@@ -151,7 +168,7 @@ public class HomeAdapter extends RecyclerView.Adapter {
             iv_right = (ImageView) itemView.findViewById(R.id.iv_right);
         }
 
-        public void setData (final HomeBean.DataBean.ItemsBean.ListBean listBean) {
+        public void setData (final HomeBean1.DataBean.ItemsBean.ListBeanX listBean) {
             String imageUrlLeft = listBean.getOne().getPic_url();
             Picasso.with(context)
                     .load(imageUrlLeft)
@@ -215,7 +232,7 @@ public class HomeAdapter extends RecyclerView.Adapter {
             iv_right_bottom = (ImageView) itemView.findViewById(R.id.iv_right_bottom);
         }
 
-        public void setData(final HomeBean.DataBean.ItemsBean.ListBean listBean) {
+        public void setData(final HomeBean1.DataBean.ItemsBean.ListBeanX listBean) {
 
             String lt = listBean.getOne().getPic_url();//左上
             String lb = listBean.getTwo().getPic_url(); //zuo xia
@@ -297,6 +314,34 @@ public class HomeAdapter extends RecyclerView.Adapter {
             });
         }
     }
+    //单张购物图片
+     class SixViewHolder extends RecyclerView.ViewHolder{
+
+         private Context context;
+         private ImageView iv_one;
+
+         public SixViewHolder(Context context,View itemView) {
+             super(itemView);
+             this.context = context;
+             iv_one = (ImageView) itemView.findViewById(R.id.iv_one);
+         }
+
+
+        public void setData(String pic_url, final HomeBean1.DataBean.ItemsBean.ListBeanX listBeanX) {
+            Picasso.with(context)
+                    .load(pic_url)
+                    .placeholder(R.drawable.comment_no_data)
+                    .error(R.drawable.comment_no_data)
+                    .into(iv_one);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                }
+            });
+        }
+    }
 
     /**
      * 监听器
@@ -318,4 +363,6 @@ public class HomeAdapter extends RecyclerView.Adapter {
     public void  setOnItemClickListener(OnItemClickListener l){
         this.itemClickListener = l;
     }
+
+
 }

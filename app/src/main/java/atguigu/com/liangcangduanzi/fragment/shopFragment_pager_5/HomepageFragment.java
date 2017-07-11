@@ -14,7 +14,7 @@ import java.util.List;
 import atguigu.com.liangcangduanzi.R;
 import atguigu.com.liangcangduanzi.adapter.HomeAdapter;
 import atguigu.com.liangcangduanzi.base.BaseFragment;
-import atguigu.com.liangcangduanzi.bean.HomeBean;
+import atguigu.com.liangcangduanzi.bean.HomeBean1;
 import atguigu.com.liangcangduanzi.utils.JieKouUtils;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -29,9 +29,9 @@ public class HomepageFragment extends BaseFragment {
     @InjectView(R.id.recycleview)
     RecyclerView recycleview;
     private HomeAdapter adapter;
-    private HomeBean homeBean;
 
     private ImageView iv_go_to_top;
+    private HomeBean1 homeBean1;
 
     @Override
     public View initView() {
@@ -69,13 +69,12 @@ public class HomepageFragment extends BaseFragment {
                 });
     }
 
-    List<HomeBean.DataBean.ItemsBean.ListBean> list;
-
+    private List<HomeBean1.DataBean.ItemsBean.ListBeanX> list;
     private void progressData(String json) {
 
-        homeBean = new Gson().fromJson(json, HomeBean.class);
+        homeBean1 = new Gson().fromJson(json, HomeBean1.class);
 
-        list = homeBean.getData().getItems().getList();
+        list = homeBean1.getData().getItems().getList();
 
         adapter = new HomeAdapter(getActivity(),list);
 

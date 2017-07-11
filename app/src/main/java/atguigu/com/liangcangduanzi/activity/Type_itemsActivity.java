@@ -12,14 +12,13 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.handmark.pulltorefresh.library.PullToRefreshGridView;
-import com.zhy.http.okhttp.OkHttpUtils;
-import com.zhy.http.okhttp.callback.StringCallback;
 
 import java.util.List;
 
 import atguigu.com.liangcangduanzi.R;
 import atguigu.com.liangcangduanzi.adapter.Type_itemsAdapter;
 import atguigu.com.liangcangduanzi.bean.JiaJu1Bean;
+import atguigu.com.liangcangduanzi.utils.NetUtils;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import okhttp3.Call;
@@ -96,24 +95,19 @@ public class Type_itemsActivity extends AppCompatActivity {
     }
 
     private void getDataFromNet() {
-        OkHttpUtils
-                .get()
-                .url(url)
-                .build()
-                .execute(new StringCallback() {
-                    @Override
-                    public void onError(Call call, Exception e, int id) {
-                        Log.e("TAG", "shibai" + e.getMessage());
 
-                    }
+        NetUtils.getInstance().get(url, new NetUtils.OnOkHttpListener() {
+            @Override
+            public void onResponse(String response, int id) {
+                progressData(response);
+            }
 
-                    @Override
-                    public void onResponse(String response, int id) {
-                        Log.e("TAG", "成功");
-                        progressData(response);
+            @Override
+            public void onError(Call call, Exception e, int id) {
 
-                    }
-                });
+            }
+        });
+
     }
 
     private void progressData(String json) {

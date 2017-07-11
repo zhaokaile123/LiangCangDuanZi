@@ -94,7 +94,7 @@ public class JieKouUtils {
             "app_key=Android&sig=3780CB0808528F7CE99081D295EE8C0F%7C116941220826768&uid=" +
             "626138098&user_token=0516ed9429352c8e1e3bd11c63ba6f54&v=1.0";
 
-    //达人
+    //达人   得到uid
     public static String DAREN = "http://mobile.iliangcang.com/user/masterList?app_key=Android&count=18&page=1" +
             "&sig=79F01B94B8EBEFAC8EEB344EE2B20AA2%7C383889010803768&v=1.0";
     //专题
@@ -134,6 +134,46 @@ public class JieKouUtils {
 
     //商品详情 尾
     public static String GOODSINFOEND = "&sig=BF287AF953103F390674E73DDA18CFD8%7C639843030233268&v=1.0";
+
+    //喜欢的头
+    public static String XIHUANHEAN = "http://mobile.iliangcang.com/user/masterLike?app_key=Android&count=10&owner_id=";
+    //喜欢的尾
+    public static String XIHUANWEI = "&page=1&sig=CD0E234053E25DD6111E3DBD450A4B85%7C954252010968868&v=1.0";
+
+    //推荐的头
+    public static String TUIJIANTOU = "http://mobile.iliangcang.com/user/masterListInfo?app_key=Android&count=10&owner_id=";
+
+    //推荐的尾
+    public static String TUIJIANWEI = "&page=1&sig=CD0E234053E25DD6111E3DBD450A4B85%7C954252010968868&v=1.0";
+
+    //关注的头
+    public static String GUANZHUTOU = "http://mobile.iliangcang.com/user/masterFollow?app_key=Android&count=12&owner_id=";
+    //关注的尾
+    public static String GAUNZHUWEI = "&page=1&sig=CD0E234053E25DD6111E3DBD450A4B85%7C954252010968868&v=1.0";
+
+    //粉丝的头
+    public static String FENSITOU = "http://mobile.iliangcang.com/user/masterFollowed?app_key=Android&count=12&owner_id=";
+    //粉丝的尾
+    public static String FEISIWEI = "&page=1&sig=CD0E234053E25DD6111E3DBD450A4B85%7C954252010968868&v=1.0";
+
+    public static String MORE_TUIJIAN = "http://mobile.iliangcang.com/user/masterList?app_key=Android&count=18&orderby=goods_sum&page=1&sig=" +
+            "79F01B94B8EBEFAC8EEB344EE2B20AA2%7C383889010803768&v=1.0";
+
+    public static String HUANYING = "http://mobile.iliangcang.com/user/masterList?app_key=Android&count=18&orderby=followers&page=1&sig=" +
+            "79F01B94B8EBEFAC8EEB344EE2B20AA2%7C383889010803768&v=1.0";
+
+    public static String TUIJIAN_NEW = "http://mobile.iliangcang.com/user/masterList?app_key=Android&count=18&orderby=action_time&page=1&sig=" +
+            "CD0E234053E25DD6111E3DBD450A4B85%7C954252010968868&v=1.0";
+
+    public static String IN_NEW = "http://mobile.iliangcang.com/user/masterList?app_key=Android&count=18&orderby=reg_time&page=1&sig=" +
+            "79F01B94B8EBEFAC8EEB344EE2B20AA2%7C383889010803768&v=1.0";
+
+    //百思不得姐 推荐
+    public static String BSTUIJIAN = "http://s.budejie.com/topic/list/jingxuan/1/budejie-android-6.6.3/0-20.json";
+
+    // 百思不得解 段子
+    public static String BSDUANZI = "http://s.budejie.com/topic/tag-topic/64/hot/budejie-android-6.6.3/0-20.json";
+
 
 
 }

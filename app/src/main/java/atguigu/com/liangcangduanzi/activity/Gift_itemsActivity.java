@@ -45,6 +45,7 @@ public class Gift_itemsActivity extends AppCompatActivity {
         ButterKnife.inject(this);
         url = getIntent().getStringExtra("url");
 
+
         gridView = pullToRefreshGridView.getRefreshableView();
 
         iniData();

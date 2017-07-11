@@ -1,12 +1,9 @@
 package atguigu.com.liangcangduanzi.fragment;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -22,7 +19,6 @@ import butterknife.InjectView;
  */
 
 public class ShopFragment extends BaseFragment {
-
 
     @InjectView(R.id.search)
     ImageView search;
@@ -55,8 +51,8 @@ public class ShopFragment extends BaseFragment {
     public void initData() {
         super.initData();
 
-        viewPager.setCurrentItem(2);
-        tablayout.getTabAt(2).select();
+        viewPager.setCurrentItem(0);
+        tablayout.getTabAt(0).select();
 
         initListener();
     }
@@ -86,13 +82,5 @@ public class ShopFragment extends BaseFragment {
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.reset(this);
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // TODO: inflate a fragment view
-        View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        ButterKnife.inject(this, rootView);
-        return rootView;
     }
 }

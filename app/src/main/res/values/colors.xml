@@ -6,4 +6,6 @@
     <color name="colorGaryWight">#F5F5F5</color>
     <color name="colorGary">#696969</color>
 
+    <color name="transparent">#80000000</color>
+
 </resources>
