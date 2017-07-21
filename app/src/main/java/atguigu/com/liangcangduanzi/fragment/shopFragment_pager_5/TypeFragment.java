@@ -39,7 +39,6 @@ public class TypeFragment extends BaseFragment {
     private  GridView gridView;
 
 
-
     @Override
     public View initView() {
 
@@ -47,7 +46,6 @@ public class TypeFragment extends BaseFragment {
         ButterKnife.inject(this, view);
 
         gridView = pullToRefreshGridView.getRefreshableView();
-
 
 
         return view;

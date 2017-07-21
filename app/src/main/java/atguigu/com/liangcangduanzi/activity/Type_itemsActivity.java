@@ -83,7 +83,7 @@ public class Type_itemsActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 List<JiaJu1Bean.DataBean.ItemsBean> items = jiaJu1Bean.getData().getItems();
                 if(items!=null && items.size()>0) {
-                    id = Integer.parseInt(items.get(0).getGoods_id());
+                    id = Integer.parseInt(items.get(i).getGoods_id());
 
                     Intent intent = new Intent(Type_itemsActivity.this,GoodsInfoActivity.class);
                     intent.putExtra("id",id);

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -25,6 +26,7 @@ import java.util.List;
 import atguigu.com.liangcangduanzi.R;
 import atguigu.com.liangcangduanzi.base.BaseFragment;
 import atguigu.com.liangcangduanzi.bean.GoodsInfoBean1;
+import atguigu.com.liangcangduanzi.carstorage.ShoppingCarActivity;
 import atguigu.com.liangcangduanzi.fragment.goodsInfoFragment_pager_2.GongGaoFragment;
 import atguigu.com.liangcangduanzi.fragment.goodsInfoFragment_pager_2.XiangQingFragment;
 import atguigu.com.liangcangduanzi.utils.JieKouUtils;
@@ -101,10 +103,13 @@ public class GoodsInfoActivity extends AppCompatActivity {
         ButterKnife.inject(this);
         rgMain = (RadioGroup) findViewById(R.id.rg_main);
 
+
         id = getIntent().getIntExtra("id", -1);
         url = JieKouUtils.GOODSINFOHEAD + id + JieKouUtils.GOODSINFOEND;
-        getUrl();
 
+        Log.e("TAG2","UTL" + url);
+
+        getUrl();
 
         setDefult();
 
@@ -114,14 +119,56 @@ public class GoodsInfoActivity extends AppCompatActivity {
     }
 
     private void initListener() {
+
+        ivBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
         //选择 尺码 颜色
         llGoodsSelect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(GoodsInfoActivity.this,GoodsSelectActivity.class);
+                intent.putExtra("goodsInfoBean1",goodsInfoBean1);
 
                 startActivity(intent);
 
+            }
+        });
+
+        //点击 品牌 图片 汉字
+        llProduct.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(GoodsInfoActivity.this, Brand_itemActivity.class);
+                intent.putExtra("id",id);
+                intent.putExtra("image",goodsInfoBean1.getData().getItems().getHeadimg());
+                intent.putExtra("brandname",goodsInfoBean1.getData().getItems().getBrand_info().getBrand_name());
+                startActivity(intent);
+
+            }
+        });
+
+        //点击购物车
+        shoppingCar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(GoodsInfoActivity.this,ShoppingCarActivity.class));
+            }
+        });
+        //点击加入购物车
+        tvAddcar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(GoodsInfoActivity.this,GoodsSelectActivity.class);
+                intent.putExtra("goodsInfoBean1",goodsInfoBean1);
+
+                startActivity(intent);
             }
         });
 
@@ -153,7 +200,7 @@ public class GoodsInfoActivity extends AppCompatActivity {
         //设置RadioGroup的选中监听
         rgMain.setOnCheckedChangeListener(new MyOnCheckedChangeListener());
 
-        //设置默认选择首页
+        //设置默认选择 商品详情
         rgMain.check(R.id.rb_good_xiangqing);
 
     }
@@ -190,16 +237,19 @@ public class GoodsInfoActivity extends AppCompatActivity {
     //设置banner 图片
     private void setBanner() {
         List<String> image = new ArrayList();
-        List<String> images_item = goodsInfoBean1.getData().getItems().getImages_item();
-        for(int i = 0; i < images_item.size(); i++) {
-            image.add(images_item.get(i));
+        if(goodsInfoBean1.getData().getItems().getImages_item()!= null) {
+            List<String> images_item = goodsInfoBean1.getData().getItems().getImages_item();
+            for(int i = 0; i < images_item.size(); i++) {
+                image.add(images_item.get(i));
+            }
+            //设置图片加载器
+            banner.setImageLoader(new PicassoImageLoader());
+            //设置图片集合
+            banner.setImages(image);
+            //banner设置方法全部调用完毕时最后调用
+            banner.start();
         }
-        //设置图片加载器
-        banner.setImageLoader(new PicassoImageLoader());
-        //设置图片集合
-        banner.setImages(image);
-        //banner设置方法全部调用完毕时最后调用
-        banner.start();
+
     }
 
     //rgMain 的 点击事件

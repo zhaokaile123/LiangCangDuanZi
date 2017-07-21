@@ -87,8 +87,11 @@ public class JieKouUtils {
         "&page=1&sig=6E1DEF1DAFF84909ECD98F32FE6CDAD5%7C536890620070968&v=1.0";
 
     //品牌
-    public static String BRAND = "http://mobile.iliangcang.com/brand/brandList?app_key=Android&count=20&page=1" +
-            "&sig=430BD99E6C913B8B8C3ED109737ECF15%7C830952120106768&v=1.0";
+    public static String BRANDHEAD = "http://mobile.iliangcang.com/brand/brandList?app_key=Android&count=20&page=";
+    public static String BRANDEND = "&sig=430BD99E6C913B8B8C3ED109737ECF15%7C830952120106768&v=1.0";
+
+
+
     //首页
     public static String HOME = "http://mobile.iliangcang.com/goods/newShopHome?" +
             "app_key=Android&sig=3780CB0808528F7CE99081D295EE8C0F%7C116941220826768&uid=" +
@@ -174,6 +177,29 @@ public class JieKouUtils {
     // 百思不得解 段子
     public static String BSDUANZI = "http://s.budejie.com/topic/tag-topic/64/hot/budejie-android-6.6.3/0-20.json";
 
+    //杂志 的 默认显示 接口
+    public static String ZAZHI = "http://mobile.iliangcang.com/topic/magazineList?app_key=Android&author_id=1" +
+            "&sig=2FA0974FFF1BC3DFA562AA63C8B5A84F%7C118265010131868&v=1.0";
+
+    //杂志作者的 接口
+    public static String AUTOR = "http://mobile.iliangcang.com/topic/magazineAuthorList?app_key=Android&sig=" +
+            "2FA0974FFF1BC3DFA562AA63C8B5A84F%7C118265010131868&v=1.0";
 
 
+
+    public static String AUTORITEM_HEND = "http://mobile.iliangcang.com/topic/magazineList?app_key=Android&author_id";
+
+    public static String AUTORITEM_END = "&sig=2FA0974FFF1BC3DFA562AA63C8B5A84F%7C118265010131868&v=1.0";
+
+    //达人详情页面推荐购头部
+    public static final String DRTJHEED = "http://mobile.iliangcang.com/goods/goodsDetail?app_key=Android&goods_id=";
+
+    //达人详情页面推荐购尾部
+    public static final String DRTJEND = "&sig=0B35CA55BE2F2CF1D7C2C3199C31E3F1%7C914100010288853&v=1.0";
+
+
+    //达人详情页面推荐购评论头部
+    public static final String DETJPLHEAD = "http://mobile.iliangcang.com/comments/goods?app_key=Android&count=3&goods_id=";
+    //达人详情页面推荐购评论尾部
+    public static final String DETJPLEND = "&page=1&sig=0B35CA55BE2F2CF1D7C2C3199C31E3F1%7C914100010288853&v=1.0";
 }

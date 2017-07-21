@@ -11,11 +11,16 @@
         android:layout_width="match_parent"
         android:layout_height="50dp">
 
-        <TextView
+        <TextSwitcher
+
+            android:inAnimation="@anim/anim_in_top"
+            android:outAnimation="@anim/anim_out_bottom"
+
+
             android:layout_centerVertical="true"
             android:id="@+id/tv_time"
             android:layout_marginLeft="20dp"
-            android:textSize="16dp"
+            android:textSize="20dp"
             android:textColor="#0066FF"
             android:text="JUL.10"
             android:layout_width="wrap_content"
@@ -28,9 +33,17 @@
             android:drawableRight="@mipmap/abc_spinner_mtrl_am_alpha"
             android:textColor="#ffffff"
             android:text="杂志"
-            android:textSize="20dp"
+            android:textSize="25dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </RelativeLayout>
+
+    <com.lhh.ptrrv.library.PullToRefreshRecyclerView
+        android:background="#ffffff"
+        android:id="@+id/recycleview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+
 
 </LinearLayout>

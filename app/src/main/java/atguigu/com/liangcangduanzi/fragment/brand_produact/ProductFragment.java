@@ -68,12 +68,10 @@ public class ProductFragment extends BaseFragment {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(getActivity(), GoodsInfoActivity.class);
                 if(items!= null && items.size() > 0) {
-                    ProductBean.DataBean.ItemsBean itemsBean = items.get(0);
-                    intent.putExtra("items", itemsBean);
+                    int id = Integer.parseInt(items.get(i).getGoods_id());
+                    intent.putExtra("id", id);
                     startActivity(intent);
                 }
-
-
             }
         });
 

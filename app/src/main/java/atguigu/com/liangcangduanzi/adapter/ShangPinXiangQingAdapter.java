@@ -50,7 +50,6 @@ public class ShangPinXiangQingAdapter extends RecyclerView.Adapter {
         this.goodsInfoBean1 = goodsInfoBean1;
     }
 
-
     @Override
     public int getItemViewType(int position) {
         if (data.get(position).getType() == 0) {
@@ -81,7 +80,9 @@ public class ShangPinXiangQingAdapter extends RecyclerView.Adapter {
             return new PICTRUEViewHolder(context, inflater.inflate(R.layout.fragment_xq_content, parent, false));
 
         }
+
         return null;
+
     }
 
     @Override
@@ -103,7 +104,11 @@ public class ShangPinXiangQingAdapter extends RecyclerView.Adapter {
 
             PICTRUEViewHolder fourViewHolder = (PICTRUEViewHolder) holder;
             fourViewHolder.setData(data.get(position).getContent().getText(),goodsInfoBean1.getGoods_desc());
-        }
+        }/*else {
+            EXTRAViewHolder extraViewHolder = (EXTRAViewHolder) holder;
+            extraViewHolder.setData(goodsInfoBean1.getGoods_desc());
+        }*/
+
 
     }
 
@@ -177,4 +182,16 @@ public class ShangPinXiangQingAdapter extends RecyclerView.Adapter {
     }
 
 
+    private class EXTRAViewHolder extends RecyclerView.ViewHolder {
+        private TextView tv_desc;
+        public EXTRAViewHolder(Context context, View view) {
+            super(view);
+            tv_desc = (TextView) view.findViewById(R.id.tv_desc);
+        }
+
+        public void setData(String goods_desc) {
+            tv_desc.setText(goods_desc);
+
+        }
+    }
 }

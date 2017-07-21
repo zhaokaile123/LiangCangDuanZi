@@ -1,6 +1,8 @@
 package atguigu.com.liangcangduanzi.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
 import android.text.SpannableStringBuilder;
 import android.text.style.ForegroundColorSpan;
 import android.view.View;
@@ -11,32 +13,35 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
+import com.wx.goodview.GoodView;
 
 import java.util.List;
 
 import atguigu.com.liangcangduanzi.R;
+import atguigu.com.liangcangduanzi.activity.Special_WebViewActivity;
 import atguigu.com.liangcangduanzi.bean.DaunZiBean;
 import atguigu.com.liangcangduanzi.utils.CircleTransform;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import cn.sharesdk.onekeyshare.OnekeyShare;
 
 /**
- * Created by ASUS on 2017/7/11.
+ * Created by ASUS on 2017/7/12.
  */
 
 public class DuanZiAdapter extends BaseAdapter {
 
     List<DaunZiBean.ListBean> data;
+
     private Context context;
-    private TextView tvContext;
-    private TextView tvPlayNums;
-    private TextView tvVideoDuration;
-    private ImageView ivCommant;
-    private TextView tvCommantContext;
+    private GoodView goodView;
+
 
     public DuanZiAdapter(Context context, List<DaunZiBean.ListBean> list) {
-        this.context = context;
         this.data = list;
+        this.context = context;
+
+        goodView = new GoodView(context);
 
     }
 
@@ -55,11 +60,17 @@ public class DuanZiAdapter extends BaseAdapter {
         return 0;
     }
 
+
+    private int up;
+    private int down;
+    private int share;
+    private int pingtlun;
+
+
     @Override
-    public View getView(int i, View convertView, ViewGroup viewGroup) {
+    public View getView(final int i, View convertView, ViewGroup viewGroup) {
 
-        ViewHolder viewHolder = null;
-
+        final ViewHolder viewHolder;
         if (convertView == null) {
             convertView = View.inflate(context, R.layout.item_duanzi, null);
             viewHolder = new ViewHolder(convertView);
@@ -76,42 +87,105 @@ public class DuanZiAdapter extends BaseAdapter {
         viewHolder.tvTimeRefresh.setText(data.get(i).getPasstime());// 时间
 
         Picasso.   //头像
-            with(context)
-            .load(data.get(i).getU().getHeader().get(0))
-            .transform(new CircleTransform())
-            .into(viewHolder.ivHeadpic);
+                with(context)
+                .load(data.get(i).getU().getHeader().get(0))
+                .transform(new CircleTransform())
+                .into(viewHolder.ivHeadpic);
 
         //设置点赞，踩,转发
-        viewHolder.tvShenheDingNumber.setText(data.get(i).getUp());
-        viewHolder.tvShenheCaiNumber.setText(data.get(i).getDown() + "");
-        viewHolder.tvPostsNumber.setText(data.get(i).getForward() + "");
+        up = Integer.parseInt(data.get(i).getUp());
+        viewHolder.tvShenheDingNumber.setText(up + "");
+
+        down = data.get(i).getDown();
+        viewHolder.tvShenheCaiNumber.setText(down + "");
+
+        share = data.get(i).getForward();
+        viewHolder.tvPostsNumber.setText(share + "");
 
 
-        String name1 = data.get(i).getTop_comments().get(0).getU().getName().toString();//评论者 1
-        String content1 = data.get(i).getTop_comments().get(0).getContent().toString();
+        if (data.get(i).getTop_comments() != null) {
 
-        SpannableStringBuilder builder = new SpannableStringBuilder(name1 + ": " + content1);
-        ForegroundColorSpan redSpan = new ForegroundColorSpan(0xff4169E1);
-        builder.setSpan(redSpan, 0, name1.length(), 0xff000000);
-        viewHolder.tv_name111.setText(builder );
+            String name1 = data.get(i).getTop_comments().get(0).getU().getName().toString();//评论者 1
+            String content1 = data.get(i).getTop_comments().get(0).getContent().toString();
 
-        if(data.get(i).getTop_comments().size() > 1) {
+            SpannableStringBuilder builder = new SpannableStringBuilder(name1 + ": " + content1);
+            ForegroundColorSpan redSpan = new ForegroundColorSpan(0xff4169E1);
+            builder.setSpan(redSpan, 0, name1.length(), 0xff000000);
+            viewHolder.tvName111.setText(builder);
 
-            String name2 = data.get(i).getTop_comments().get(1).getU().getName().toString();//2
-            String content2 = data.get(i).getTop_comments().get(1).getContent().toString();
+            if (data.get(i).getTop_comments().size() > 1) {
 
-            SpannableStringBuilder builder1 = new SpannableStringBuilder(name2 + ": " + content2);
-            ForegroundColorSpan redSpan1 = new ForegroundColorSpan(0xff4169E1);
-            builder1.setSpan(redSpan1, 0, name2.length(), 0xff000000);
-            viewHolder.tvname3.setText(builder1 );
+                String name2 = data.get(i).getTop_comments().get(1).getU().getName().toString();//2
+                String content2 = data.get(i).getTop_comments().get(1).getContent().toString();
 
-        }else {
-            viewHolder.tvname3.setVisibility(View.GONE);
+                SpannableStringBuilder builder1 = new SpannableStringBuilder(name2 + ": " + content2);
+                ForegroundColorSpan redSpan1 = new ForegroundColorSpan(0xff4169E1);
+                builder1.setSpan(redSpan1, 0, name2.length(), 0xff000000);
+                viewHolder.tvName3.setText(builder1);
+
+
+            } else {
+                viewHolder.tvName3.setVisibility(View.GONE);
+            }
+
+        } else {
+            viewHolder.llPinglun.setVisibility(View.GONE);
         }
 
 
-        int id = Integer.parseInt(data.get(i).getId());//用这个id 和 详情的拼接下
+        //顶的点击事件
+        viewHolder.llDing.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
+                viewHolder.llDing.setClickable(false);
+                viewHolder.llCai.setClickable(false);
+
+                viewHolder.tvDing.setBackgroundResource(R.drawable.shenhe_ding_pic_an);
+                viewHolder.tvShenheDingNumber.setText(up + 1 + "");
+
+                goodView.setTextInfo("+1", Color.RED, 30);
+                goodView.show(view);
+            }
+        });
+
+        //踩的点击事件
+        viewHolder.llCai.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                viewHolder.llDing.setClickable(false);
+                viewHolder.llCai.setClickable(false);
+                viewHolder.tvShenheCaiNumber.setText(down + 1 + "");
+
+                viewHolder.tvCai.setBackgroundResource(R.drawable.shenhe_cai_pic_an);
+
+                goodView.setTextInfo("+1", Color.RED, 30);
+                goodView.show(view);
+            }
+        });
+
+        viewHolder.tvPinglun.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                String url = data.get(i).getShare_url();
+                Intent intent = new Intent(context, Special_WebViewActivity.class);
+                intent.putExtra("url", url);
+                context.startActivity(intent);
+
+            }
+        });
+
+
+        viewHolder.tvShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                showShare();
+
+            }
+        });
 
         return convertView;
     }
@@ -156,23 +230,56 @@ public class DuanZiAdapter extends BaseAdapter {
         TextView tvDownloadNumber;
         @InjectView(R.id.ll_download)
         LinearLayout llDownload;
+        @InjectView(R.id.tv_name111)
+        TextView tvName111;
         @InjectView(R.id.tv_name1)
         TextView tvName1;
         @InjectView(R.id.tv_content1)
         TextView tvContent1;
+        @InjectView(R.id.tv_name3)
+        TextView tvName3;
         @InjectView(R.id.tv_name2)
         TextView tvName2;
         @InjectView(R.id.tv_content2)
         TextView tvContent2;
-        @InjectView(R.id.tv_name3)
-        TextView tvname3;
-        @InjectView(R.id.tv_name111)
-        TextView tv_name111;
 
+        @InjectView(R.id.ll_pinglun)
+        LinearLayout llPinglun;
 
 
         ViewHolder(View view) {
             ButterKnife.inject(this, view);
+
+
         }
     }
+
+    private void showShare() {
+        OnekeyShare oks = new OnekeyShare();
+        //关闭sso授权
+        oks.disableSSOWhenAuthorize();
+        // title标题，印象笔记、邮箱、信息、微信、人人网、QQ和QQ空间使用
+        oks.setTitle("标题");
+        // titleUrl是标题的网络链接，仅在Linked-in,QQ和QQ空间使用
+        oks.setTitleUrl("http://sharesdk.cn");
+        // text是分享文本，所有平台都需要这个字段
+        oks.setText("我是分享文本");
+        //分享网络图片，新浪微博分享网络图片需要通过审核后申请高级写入接口，否则请注释掉测试新浪微博
+        oks.setImageUrl("http://f1.sharesdk.cn/imgs/2014/02/26/owWpLZo_638x960.jpg");
+        // imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
+        //oks.setImagePath("/sdcard/test.jpg");//确保SDcard下面存在此张图片
+        // url仅在微信（包括好友和朋友圈）中使用
+        oks.setUrl("http://sharesdk.cn");
+        // comment是我对这条分享的评论，仅在人人网和QQ空间使用
+        oks.setComment("我是测试评论文本");
+        // site是分享此内容的网站名称，仅在QQ空间使用
+        oks.setSite("ShareSDK");
+        // siteUrl是分享此内容的网站地址，仅在QQ空间使用
+        oks.setSiteUrl("http://sharesdk.cn");
+
+        // 启动分享GUI
+        oks.show(context);
+
+    }
+
 }

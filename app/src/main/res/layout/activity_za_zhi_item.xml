@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_za_zhi_item"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:context="atguigu.com.liangcangduanzi.activity.ZaZhiItemActivity">
+
+    <RelativeLayout
+        android:background="#000000"
+        android:id="@+id/rl_zazhi"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_marginLeft="20dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:id="@+id/ll_tou"
+            android:layout_centerInParent="true"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center_vertical"
+                android:textColor="#ffffff"
+                android:text="杂志 · "
+                android:textSize="25dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_toRightOf="@id/tv_name"
+                android:id="@+id/tv_zazhi"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center_vertical"
+                android:drawableRight="@mipmap/abc_spinner_mtrl_am_alpha"
+                android:textColor="#ffffff"
+                android:text="杂志"
+                android:textSize="25dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+    <com.lhh.ptrrv.library.PullToRefreshRecyclerView
+        android:id="@+id/pull_to_refresh_recycleView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </com.lhh.ptrrv.library.PullToRefreshRecyclerView>
+</LinearLayout>

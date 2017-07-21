@@ -25,7 +25,6 @@ public class Pager_typeAdapter extends BaseAdapter {
     private Context context;
     List<TypeAllBean.DataBean.ItemsBean> data = new ArrayList<>();
 
-
     public Pager_typeAdapter(Context context) {
         this.context = context;
     }
@@ -38,8 +37,6 @@ public class Pager_typeAdapter extends BaseAdapter {
             this.notifyDataSetChanged();
         }
     }
-
-
     @Override
     public int getCount() {
         return data == null ? 0 : data.size();
@@ -65,6 +62,7 @@ public class Pager_typeAdapter extends BaseAdapter {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
+
 
         TypeAllBean.DataBean.ItemsBean itemsBean = data.get(position);
         String imageUrl = itemsBean.getNew_cover_img();

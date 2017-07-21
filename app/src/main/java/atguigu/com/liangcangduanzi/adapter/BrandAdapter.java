@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import atguigu.com.liangcangduanzi.R;
@@ -24,21 +23,15 @@ import butterknife.InjectView;
 public class BrandAdapter extends BaseAdapter {
 
     private Context context;
-    private List<BrandBean.DataBean.ItemsBean> data = new ArrayList<>();
+    private List<BrandBean.DataBean.ItemsBean> data ;
 
-    public BrandAdapter(Context context) {
+    public BrandAdapter(Context context, List<BrandBean.DataBean.ItemsBean> items) {
         this.context = context;
+        this.data = items;
 
     }
 
-    public void refresh(List<BrandBean.DataBean.ItemsBean> list) {
-        //校验
-        if (list != null && list.size() >= 0) {
-            this.data.clear();
-            this.data.addAll(list);
-            this.notifyDataSetChanged();
-        }
-    }
+
 
     @Override
     public int getCount() {

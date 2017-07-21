@@ -3,16 +3,39 @@ package atguigu.com.liangcangduanzi.activity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.ImageView;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import atguigu.com.liangcangduanzi.R;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
-public class Special_WebViewActivity extends AppCompatActivity {
+public class
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Special_WebViewActivity extends AppCompatActivity {
 
     @InjectView(R.id.iv_back)
     ImageView ivBack;
@@ -26,6 +49,8 @@ public class Special_WebViewActivity extends AppCompatActivity {
     private WebSettings settings;
     private String content;
 
+    private SeekBar progressBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +58,8 @@ public class Special_WebViewActivity extends AppCompatActivity {
         ButterKnife.inject(this);
         url = getIntent().getStringExtra("url");
         content = getIntent().getStringExtra("content");
+
+        progressBar = (SeekBar) findViewById(R.id.progressbar);
 
         initData();
 
@@ -50,8 +77,22 @@ public class Special_WebViewActivity extends AppCompatActivity {
         //添加变大变小按钮
         settings.setBuiltInZoomControls(true);
 
-        //加载网页地址
+
         webview.loadUrl(url.toString());
+
+        webview.setWebChromeClient(new WebChromeClient() {
+            @Override
+            public void onProgressChanged(WebView view, int newProgress) {
+                super.onProgressChanged(view, newProgress);
+
+                if(newProgress == 100) {
+                    progressBar.setVisibility(View.GONE);
+                }else {
+                    progressBar.setVisibility(View.VISIBLE);
+                    progressBar.setProgress(newProgress);
+                }
+            }
+        });
 
         tvContent.setText(content);
     }
@@ -75,5 +116,8 @@ public class Special_WebViewActivity extends AppCompatActivity {
         return false;
     }
 */
+
+
+
 
 }

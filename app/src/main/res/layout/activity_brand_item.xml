@@ -43,8 +43,8 @@
             android:id="@+id/iv_logo"
             android:layout_centerHorizontal="true"
             android:src="@drawable/shop"
-            android:layout_width="70dp"
-            android:layout_height="70dp" />
+            android:layout_width="80dp"
+            android:layout_height="80dp" />
 
         <TextView
             android:id="@+id/brand_name"

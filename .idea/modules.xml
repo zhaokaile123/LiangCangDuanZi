@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/LiangCangDuanZi.iml" filepath="$PROJECT_DIR$/LiangCangDuanZi.iml" />
       <module fileurl="file://$PROJECT_DIR$/PullToRefresh——library/PullToRefresh——library.iml" filepath="$PROJECT_DIR$/PullToRefresh——library/PullToRefresh——library.iml" />
+      <module fileurl="file://$PROJECT_DIR$/addsubview/addsubview.iml" filepath="$PROJECT_DIR$/addsubview/addsubview.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

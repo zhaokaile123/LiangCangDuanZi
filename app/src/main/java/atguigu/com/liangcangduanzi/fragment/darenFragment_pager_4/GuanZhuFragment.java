@@ -100,11 +100,11 @@ public class GuanZhuFragment extends BaseFragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                Intent intent = new Intent(getActivity(),DarRenActivity.class);
-                String username = guanZhuFenSiBean.getData().getItems().getUser_name();
-                String duty = guanZhuFenSiBean.getData().getItems().getUser_desc();
-                String imageUrl = guanZhuFenSiBean.getData().getItems().getUser_image().getOrig();
-                uid = Integer.parseInt(guanZhuFenSiBean.getData().getItems().getUser_id());
+                Intent intent = new Intent(context,DarRenActivity.class);
+                String username = guanZhuFenSiBean.getData().getItems().getUsers().get(i).getUser_name();
+                String duty = guanZhuFenSiBean.getData().getItems().getUsers().get(i).getUser_desc();
+                String imageUrl = guanZhuFenSiBean.getData().getItems().getUsers().get(i).getUser_image().getOrig();
+                uid = Integer.parseInt(guanZhuFenSiBean.getData().getItems().getUsers().get(i).getUser_id());
 
                 intent.putExtra("username",username);
                 intent.putExtra("duty",duty);

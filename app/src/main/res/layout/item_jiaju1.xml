@@ -7,13 +7,14 @@
 
     <RelativeLayout
         android:layout_width="250dp"
-        android:layout_height="240dp">
+        android:layout_height="220dp">
 
         <ImageView
+            android:scaleType="fitXY"
             android:id="@+id/iv_icon"
             android:src="@drawable/list_view_release"
-            android:layout_width="250dp"
-            android:layout_height="240dp" />
+            android:layout_width="match_parent"
+            android:layout_height="220dp" />
 
         <ImageView
             android:visibility="gone"
@@ -92,10 +93,11 @@
 
         <RelativeLayout
             android:layout_marginLeft="30dp"
-            android:layout_width="wrap_content"
+            android:layout_width="80dp"
             android:layout_height="wrap_content">
 
             <TextView
+                android:layout_centerInParent="true"
                 android:textSize="20dp"
                 android:id="@+id/old_price"
                 android:textColor="#ffffff"
@@ -107,12 +109,10 @@
             <TextView
 
                 android:layout_centerInParent="true"
-                android:layout_marginBottom="10dp"
                 android:id="@+id/xian"
-                android:textColor="#ffffff"
-                android:text="——————"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:background="#ffffff"
+                android:layout_width="match_parent"
+                android:layout_height="1dp" />
 
         </RelativeLayout>
 

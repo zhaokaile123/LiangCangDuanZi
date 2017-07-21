@@ -1,12 +1,13 @@
 package atguigu.com.liangcangduanzi.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by ASUS on 2017/7/10.
  */
 
-public class GoodsInfoBean1 {
+public class GoodsInfoBean1 implements Serializable {
 
 
     /**
@@ -43,7 +44,7 @@ public class GoodsInfoBean1 {
         this.data = data;
     }
 
-    public static class MetaBean {
+    public static class MetaBean implements Serializable{
         /**
          * status : 0
          * server_time : 2017-07-10 08:52:21
@@ -109,7 +110,7 @@ public class GoodsInfoBean1 {
         }
     }
 
-    public static class DataBean {
+    public static class DataBean implements Serializable{
         /**
          * has_more : false
          * num_items : 1
@@ -144,7 +145,7 @@ public class GoodsInfoBean1 {
             this.items = items;
         }
 
-        public static class ItemsBean {
+        public static class ItemsBean implements  Serializable{
             /**
              * goods_id : 257805
              * goods_image : http://imgs-qn.iliangcang.com/ware/goods/big/2/257/257805.jpg
@@ -500,7 +501,7 @@ public class GoodsInfoBean1 {
                 this.goods_info = goods_info;
             }
 
-            public static class BrandInfoBean {
+            public static class BrandInfoBean implements Serializable {
                 /**
                  * brand_id : 801
                  * brand_name : 炼金师
@@ -546,7 +547,7 @@ public class GoodsInfoBean1 {
                 }
             }
 
-            public static class GoodGuideBean {
+            public static class GoodGuideBean implements Serializable{
                 /**
                  * title : 购物指南
                  * content : 所有商品均为正品保证。
@@ -575,7 +576,7 @@ public class GoodsInfoBean1 {
                 }
             }
 
-            public static class SkuInfoBean {
+            public static class SkuInfoBean implements Serializable{
                 /**
                  * type_id : 7
                  * type_name : 数量
@@ -620,7 +621,7 @@ public class GoodsInfoBean1 {
                     this.attrList = attrList;
                 }
 
-                public static class AttrListBean {
+                public static class AttrListBean implements Serializable{
                     /**
                      * attr_id : 73
                      * attr_name : 套餐一
@@ -657,7 +658,7 @@ public class GoodsInfoBean1 {
                 }
             }
 
-            public static class SkuInvBean {
+            public static class SkuInvBean implements Serializable{
                 /**
                  * goods_sku_sn : 0101000000000000257805000700730000000000000000000000000000000000
                  * type_keys : 7
@@ -723,7 +724,8 @@ public class GoodsInfoBean1 {
                 }
             }
 
-            public static class GoodsInfoBean {
+            public static class GoodsInfoBean implements  Serializable
+            {
                 /**
                  * type : 1
                  * content : {"img":"http://imgs-qn.iliangcang.com//ware/ueditor/image/20170525/1495693238665119.jpg","width":661,"height":1023,"length":79}
@@ -748,7 +750,7 @@ public class GoodsInfoBean1 {
                     this.content = content;
                 }
 
-                public static class ContentBean {
+                public static class ContentBean implements Serializable{
                     /**
                      * img : http://imgs-qn.iliangcang.com//ware/ueditor/image/20170525/1495693238665119.jpg
                      * width : 661

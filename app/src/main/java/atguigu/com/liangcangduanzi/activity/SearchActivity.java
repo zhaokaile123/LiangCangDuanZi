@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import atguigu.com.liangcangduanzi.R;
 import butterknife.ButterKnife;
@@ -32,8 +31,9 @@ public class SearchActivity extends AppCompatActivity {
                 finish();
                 break;
             case R.id.serach_iv_search:
-                Toast.makeText(SearchActivity.this, "我在SearchActivity中，来设置我吧", Toast.LENGTH_SHORT).show();
+
                 break;
         }
     }
+
 }

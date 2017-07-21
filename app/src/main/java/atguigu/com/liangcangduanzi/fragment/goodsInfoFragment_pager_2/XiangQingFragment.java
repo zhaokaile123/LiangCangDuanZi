@@ -1,8 +1,10 @@
 package atguigu.com.liangcangduanzi.fragment.goodsInfoFragment_pager_2;
 
+import android.graphics.Color;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.TextView;
 
 import com.google.gson.Gson;
 
@@ -28,15 +30,19 @@ public class XiangQingFragment extends BaseFragment {
     private GoodsInfoBean1 goodsInfoBean1;
     private ShangPinXiangQingAdapter adapter;
 
+    private TextView tv_desc;
+
     @Override
     public View initView() {
         View view = View.inflate(context, R.layout.fragment_xiangqing, null);
         ButterKnife.inject(this, view);
+        tv_desc = (TextView) view.findViewById(R.id.tv_desc);
         return view;
     }
 
     @Override
     public void initData() {
+
         super.initData();
         GoodsInfoActivity activity = (GoodsInfoActivity) getActivity();
         url = activity.getUrl();
@@ -62,6 +68,8 @@ public class XiangQingFragment extends BaseFragment {
         goodsInfoBean1 = new Gson().fromJson(json, GoodsInfoBean1.class);
         adapter = new ShangPinXiangQingAdapter(context,goodsInfoBean1.getData().getItems());
         recycleview.setAdapter(adapter);
+        tv_desc.setText(goodsInfoBean1.getData().getItems().getGoods_desc());
+        tv_desc.setTextColor(Color.GRAY);
 
         recycleview.setLayoutManager(new LinearLayoutManager(context));
     }

@@ -32,7 +32,6 @@ public class ShareFragment extends BaseFragment {
         // tablayout.setTabMode(TabLayout.MODE_SCROLLABLE);//适合比较多的tab  可以滑动
         //tabMode 是不可以滑动   均分宽度  适合少量的tab 这中模式在布局中设置
 
-
         //  这个解决了 fragment 不显示的问题  用getChildFragmentManager()
         BSAdapter adapter = new BSAdapter(getChildFragmentManager());
 

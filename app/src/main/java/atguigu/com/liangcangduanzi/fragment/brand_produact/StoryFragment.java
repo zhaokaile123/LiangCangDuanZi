@@ -42,7 +42,6 @@ public class StoryFragment extends BaseFragment {
         Brand_itemActivity activity = (Brand_itemActivity) getActivity();
         url = activity.url;
 
-
         getDataFromNet(url);
     }
 

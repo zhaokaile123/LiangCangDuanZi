@@ -63,6 +63,7 @@ public class DuanziFragment extends BaseFragment {
     }
 
     private void progressData(String json) {
+
         daunZiBean = new Gson().fromJson(json, DaunZiBean.class);
 
         adapter = new DuanZiAdapter(context,daunZiBean.getList());

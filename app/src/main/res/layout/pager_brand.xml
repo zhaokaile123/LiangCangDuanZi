@@ -14,6 +14,9 @@
         android:divider="#666666"
         android:dividerHeight="1dp"
         android:fadingEdge="none"
+
+        ptr:ptrAnimationStyle="flip"
+
         android:fastScrollEnabled="false"
         android:footerDividersEnabled="false"
         android:headerDividersEnabled="false"

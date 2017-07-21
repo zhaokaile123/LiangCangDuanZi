@@ -8,6 +8,8 @@
         android:id="@+id/title"
         />
     <LinearLayout
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
         android:layout_margin="5dp"
         android:orientation="horizontal"
         android:id="@+id/ll_shaixuan"
@@ -16,7 +18,7 @@
 
         <TextView
             android:layout_weight="1"
-            android:textSize="18dp"
+            android:textSize="20dp"
             android:layout_marginLeft="20dp"
             android:text="价格筛选"
             android:layout_gravity="center_vertical"

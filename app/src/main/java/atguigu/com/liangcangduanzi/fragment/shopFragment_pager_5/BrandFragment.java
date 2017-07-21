@@ -1,11 +1,13 @@
 package atguigu.com.liangcangduanzi.fragment.shopFragment_pager_5;
 
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.google.gson.Gson;
+import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
@@ -37,6 +39,14 @@ public class BrandFragment extends BaseFragment {
     private List<BrandBean.DataBean.ItemsBean> items;
 
 
+    private int i = 1;
+
+    /**
+     * 加载更多
+     */
+    private boolean refreshLoadMore = false;
+
+
     @Override
     public View initView() {
 
@@ -44,6 +54,7 @@ public class BrandFragment extends BaseFragment {
         ButterKnife.inject(this, view);
 
         lv = pullRefreshList.getRefreshableView();
+
         return view;
 
     }
@@ -60,7 +71,7 @@ public class BrandFragment extends BaseFragment {
 
         OkHttpUtils
                 .get()
-                .url(JieKouUtils.BRAND)
+                .url(JieKouUtils.BRANDHEAD + i + JieKouUtils.BRANDEND)
                 .build()
                 .execute(new StringCallback() {
                     @Override
@@ -70,33 +81,53 @@ public class BrandFragment extends BaseFragment {
 
                     @Override
                     public void onResponse(String response, int id) {
+                        Log.e("TAG5",""+i);
                         progressData(response);
+
+                        pullRefreshList.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                pullRefreshList.onRefreshComplete();
+                            }
+                        }, 1000);;//结束上拉刷新
 
                     }
                 });
 
     }
-
     private void progressData(String json) {
 
         BrandBean brandBean = new Gson().fromJson(json, BrandBean.class);
-        items = brandBean.getData().getItems();
 
-        adapter = new BrandAdapter(context);
+        if(!refreshLoadMore) {
+            items = brandBean.getData().getItems();
 
-        lv.setAdapter(adapter);
+            if(items != null && items.size()>0) {
 
-        adapter.refresh(items);
+                adapter = new BrandAdapter(context,items);
+                lv.setAdapter(adapter);
+
+            }
+
+        }else {  //加载更多
+            List<BrandBean.DataBean.ItemsBean> data = brandBean.getData().getItems();
+
+            items.addAll(data);
+            adapter.notifyDataSetChanged();
+
+        }
 
         initListener();
-
     }
+
+
 
     private void initListener() {
 
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
                 Intent intent = new Intent(getActivity(), Brand_itemActivity.class);
                 intent.putExtra("id", items.get(i-1).getBrand_id());
                 intent.putExtra("position",i-1);
@@ -105,6 +136,24 @@ public class BrandFragment extends BaseFragment {
                 startActivity(intent);
             }
         });
+
+        pullRefreshList.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
+            @Override// 下拉 刷新
+            public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
+                refreshLoadMore = false;
+                i=1;
+                getDataFromNet();
+            }
+
+            @Override// 上拉加载
+            public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
+                refreshLoadMore = true;
+                i++;
+                getDataFromNet();
+
+            }
+        });
+
 
     }
 

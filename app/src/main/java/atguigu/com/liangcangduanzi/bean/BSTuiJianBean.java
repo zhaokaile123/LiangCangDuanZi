@@ -129,7 +129,7 @@ public class BSTuiJianBean {
             this.text = text;
         }
 
-        public String getUp() {
+        public  String getUp() {
             return up;
         }
 
