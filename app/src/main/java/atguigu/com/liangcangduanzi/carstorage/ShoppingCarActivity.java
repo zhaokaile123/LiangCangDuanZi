@@ -13,6 +13,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import atguigu.com.liangcangduanzi.R;
+import atguigu.com.liangcangduanzi.pay.Pay;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
@@ -44,6 +45,7 @@ public class ShoppingCarActivity extends AppCompatActivity {
     private List<ShoppingCarBean> data;
     private ShoppingCarAdapter adapter;
 
+    private Pay pay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +53,7 @@ public class ShoppingCarActivity extends AppCompatActivity {
         setContentView(R.layout.activity_shopping_car);
         ButterKnife.inject(this);
 
+        pay = new Pay(this);
 
         setData();
     }
@@ -69,7 +72,8 @@ public class ShoppingCarActivity extends AppCompatActivity {
 
     }
 
-    private boolean isEdit = true;
+    private boolean isEdit = false;
+
 
     private void initListener() {
         //编辑界面的 点击事件
@@ -80,22 +84,27 @@ public class ShoppingCarActivity extends AppCompatActivity {
                 isEdit = !isEdit;
                 if (isEdit) {
 
-                    tvEdit.setText("编辑");
+                    tvEdit.setText("完成");
                     adapter.setEdit(isEdit);
                     adapter.notifyDataSetChanged();
 
                 } else {
 
-                    tvEdit.setText("完成");
+                    tvEdit.setText("编辑");
                     adapter.setEdit(isEdit);
                     adapter.notifyDataSetChanged();
                 }
-
-
             }
         });
 
-    }
 
+        //结算 吊起支付宝
+        tvToby.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                pay.pay(0.01);
+            }
+        });
+    }
 
 }

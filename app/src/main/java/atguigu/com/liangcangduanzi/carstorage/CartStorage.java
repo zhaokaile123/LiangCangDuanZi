@@ -115,8 +115,9 @@ public class CartStorage {
      * @param bean
      */
     public void deleteData(ShoppingCarBean bean) {
+
         //内存中更新
-        sparseArray.delete((int) Long.parseLong(bean.getId()));
+      //  sparseArray.delete((int) Long.parseLong(bean.getId()));
         //数据库更新
         goodsDBdao.deleteInfo(bean.getId());
 

@@ -1,6 +1,8 @@
 package atguigu.com.liangcangduanzi.carstorage;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,7 +11,6 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -34,7 +35,7 @@ public class ShoppingCarAdapter extends RecyclerView.Adapter<ShoppingCarAdapter.
     private LayoutInflater inflater;
     private TextView tvDiscountAll;
     private TextView tvDsicount;
-    private ShoppingCarBean goodsBean;
+
 
     public ShoppingCarAdapter(Context context, List<ShoppingCarBean> data, CheckBox checkBox, TextView tvTotal, TextView tvDiscountAll, TextView tvDsicount) {
         this.context = context;
@@ -131,7 +132,7 @@ public class ShoppingCarAdapter extends RecyclerView.Adapter<ShoppingCarAdapter.
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         //1.根据位置得到数据
-        goodsBean = data.get(position);
+        final ShoppingCarBean goodsBean = data.get(position);
         //2.绑定数据
         holder.cbGov.setChecked(goodsBean.isChecked());
         //图片
@@ -154,7 +155,7 @@ public class ShoppingCarAdapter extends RecyclerView.Adapter<ShoppingCarAdapter.
         holder.tvBarandName1.setText(goodsBean.getName());
         holder.tvPrice1.setText(goodsBean.getPrice());
 
-        if(!isEdit) {
+        if(isEdit) {
             holder.llEdit.setVisibility(View.GONE);
             holder.llComplete.setVisibility(View.VISIBLE);
         }else {
@@ -162,7 +163,37 @@ public class ShoppingCarAdapter extends RecyclerView.Adapter<ShoppingCarAdapter.
             holder.llComplete.setVisibility(View.GONE);
         }
 
+        holder.tvDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showDialog(goodsBean);
+            }
+        });
 
+        holder.addSubView.setOnNumberChangeListener(new AddSubView.OnNumberChangeListener() {
+            @Override
+            public void numberChange(int value) {
+                goodsBean.setNumb(value);
+                CartStorage.getInstance(context).updateData(goodsBean);
+                showTotalPrice();
+
+            }
+        });
+
+    }
+
+    private void showDialog(final ShoppingCarBean goodsBean) {
+        new AlertDialog.Builder(context)
+                    .setMessage("确认删除此商品？")
+                    .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                            deleteData(goodsBean);
+                        }
+                    })
+                    .setNegativeButton("取消", null)
+                    .show();
     }
 
     //校验 全选 按钮  是否需要被选中    根据上面按钮的状态 来显示下面全选按钮的状态
@@ -208,13 +239,19 @@ public class ShoppingCarAdapter extends RecyclerView.Adapter<ShoppingCarAdapter.
     /**
      * 删除商品
      */
-    public void deleteData() {
+   public void deleteData(ShoppingCarBean goodsBean) {
 
         if (data != null && data.size() > 0) {
 
-            for (int i = 0; i < data.size(); i++) {
+            data.remove(goodsBean);
 
-                ShoppingCarBean goodsBean = data.get(i);
+            CartStorage.getInstance(context).deleteData(goodsBean);
+
+            notifyDataSetChanged();
+
+            //这个是选中的全删
+            /*for (int i = 0; i < data.size(); i++) {
+
                 if (goodsBean.isChecked()) {
                     data.remove(goodsBean);
 
@@ -222,8 +259,9 @@ public class ShoppingCarAdapter extends RecyclerView.Adapter<ShoppingCarAdapter.
 
                     notifyDataSetChanged();
                     i--;
+
                 }
-            }
+            }*/
         }
     }
 
@@ -283,22 +321,9 @@ public class ShoppingCarAdapter extends RecyclerView.Adapter<ShoppingCarAdapter.
                 }
             });
 
-           tvDelete.setOnClickListener(new View.OnClickListener() {
-               @Override
-               public void onClick(View view) {
-                   Toast.makeText(context, "sahnchu", Toast.LENGTH_SHORT).show();
-               }
-           });
 
-           addSubView.setOnNumberChangeListener(new AddSubView.OnNumberChangeListener() {
-               @Override
-               public void numberChange(int value) {
-                   goodsBean.setNumb(value);
-                   CartStorage.getInstance(context).updateData(goodsBean);
-                   showTotalPrice();
 
-               }
-           });
+
         }
     }
 }

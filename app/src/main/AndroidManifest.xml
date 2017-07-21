@@ -84,10 +84,21 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity android:name=".activity.ZaZhiActivity" />
         <activity android:name=".activity.ZaZhiItemActivity" />
-        <activity android:name=".activity.ShopngCarActivity" />
         <activity android:name=".activity.DaRenRecommonPingLunInfoActivity" />
         <activity android:name=".carstorage.ShoppingCarActivity" />
         <activity android:name=".activity.DingDanActivity"></activity>
+
+
+        <!-- alipay sdk begin -->
+        <activity
+            android:name="com.alipay.sdk.app.H5PayActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:exported="false"
+            android:screenOrientation="behind"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+
+        <!-- alipay sdk end -->
+
     </application>
 
 </manifest>

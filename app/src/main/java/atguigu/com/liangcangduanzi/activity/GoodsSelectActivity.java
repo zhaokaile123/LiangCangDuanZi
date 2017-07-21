@@ -284,6 +284,7 @@ public class GoodsSelectActivity extends AppCompatActivity {
 
 
                 storage.addData(shoppingCarBean);
+                finish();
 
                 Toast.makeText(GoodsSelectActivity.this, "已经添加到购物车", Toast.LENGTH_SHORT).show();
 

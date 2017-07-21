@@ -33,19 +33,14 @@ dependencies {
     compile 'com.google.code.gson:gson:2.2.4'
     compile 'com.squareup.picasso:picasso:2.3.2'
     compile project(':PullToRefresh——library')
-
     //下拉 的recycleview
     compile 'homhomlin.lib:ptrrv-library:1.3.1'
-
     compile 'com.jakewharton:butterknife:5.1.1'
     compile 'com.youth.banner:banner:1.4.9'
     compile 'fm.jiecao:jiecaovideoplayer:4.8.3'
     compile 'org.xutils:xutils:3.5.0'
     compile 'com.commit451:PhotoView:1.2.4'
     compile 'com.wx.goodview:goodview:1.0.0'
-
-
-
     compile files('lib/ShareSDK-Wechat-Moments-2.8.0.jar')
     compile files('lib/MobCommons-2016.1222.1756.jar')
     compile files('lib/MobTools-2016.1222.1756.jar')
@@ -61,7 +56,8 @@ dependencies {
     compile files('lib/ShareSDK-Wechat-2.8.0.jar')
     compile files('lib/ShareSDK-Wechat-Core-2.8.0.jar')
     compile files('lib/ShareSDK-YouDao-2.8.0.jar')
-
     compile 'com.zhy:flowlayout-lib:1.0.3'
-    
+    compile files('lib/alipayutdid.jar')
+    compile files('lib/alipaysdk.jar')
+    compile files('lib/alipaysecsdk.jar')
 }

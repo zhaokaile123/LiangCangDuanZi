@@ -5,12 +5,12 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import atguigu.com.liangcangduanzi.R;
 import atguigu.com.liangcangduanzi.activity.SearchActivity;
 import atguigu.com.liangcangduanzi.adapter.ShopFragmentAdapter;
 import atguigu.com.liangcangduanzi.base.BaseFragment;
+import atguigu.com.liangcangduanzi.carstorage.ShoppingCarActivity;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
@@ -73,7 +73,7 @@ public class ShopFragment extends BaseFragment {
         shoppingCar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getActivity(), "我在shopFragment中，来设置我吧", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(context, ShoppingCarActivity.class));
             }
         });
     }

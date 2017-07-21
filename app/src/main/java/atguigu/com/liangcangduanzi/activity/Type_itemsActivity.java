@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.handmark.pulltorefresh.library.PullToRefreshGridView;
@@ -18,6 +17,7 @@ import java.util.List;
 import atguigu.com.liangcangduanzi.R;
 import atguigu.com.liangcangduanzi.adapter.Type_itemsAdapter;
 import atguigu.com.liangcangduanzi.bean.JiaJu1Bean;
+import atguigu.com.liangcangduanzi.carstorage.ShoppingCarActivity;
 import atguigu.com.liangcangduanzi.utils.NetUtils;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -65,7 +65,7 @@ public class Type_itemsActivity extends AppCompatActivity {
         shoppingCar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(Type_itemsActivity.this, "我在Type_itemsActivity中", Toast.LENGTH_SHORT).show();
+              startActivity(new Intent(Type_itemsActivity.this, ShoppingCarActivity.class));
             }
         });
 
