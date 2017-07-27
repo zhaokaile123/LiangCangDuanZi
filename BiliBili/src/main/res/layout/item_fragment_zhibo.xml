@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_marginBottom="5dp"
+        android:id="@+id/ll_showAll"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iv_icom"
+            android:src="@drawable/bangumi_season_list_ic_season"
+            android:layout_width="30dp"
+            android:layout_height="30dp" />
+
+        <TextView
+            android:id="@+id/type"
+            android:layout_weight="1"
+            android:layout_marginLeft="10dp"
+            android:gravity="center_vertical"
+            android:textSize="14dp"
+            android:text="会话专区"
+            android:layout_width="0dp"
+            android:layout_height="match_parent" />
+
+
+        <TextView
+            android:gravity="center_vertical"
+            android:textSize="14dp"
+            android:text="当前"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:textColor="#FF4081"
+            android:id="@+id/zhiboAcount"
+            android:gravity="center_vertical"
+            android:textSize="14dp"
+            android:text="99"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:gravity="center_vertical"
+            android:textSize="14dp"
+            android:text="个直播"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+
+        <ImageView
+            android:layout_marginLeft="3dp"
+            android:src="@drawable/ic_gray_arrow_right"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
+    <atguigu.com.bilibili.view.GridViewNoScroll
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:horizontalSpacing="10dp"
+        android:verticalSpacing="10dp"
+        android:id="@+id/gridview"
+        android:numColumns="2"
+        android:layout_width="match_parent"
+        android:layout_height="400dp">
+
+    </atguigu.com.bilibili.view.GridViewNoScroll>
+
+
+
+</LinearLayout>

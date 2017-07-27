@@ -98,9 +98,7 @@ public class ShoppingCarAdapter extends RecyclerView.Adapter<ShoppingCarAdapter.
 
                     total1 += Double.parseDouble(goodsBean.getDiscount()) * Double.parseDouble(goodsBean.getNumb() + "");
                 }
-
             }
-
         }
 
         return total1;

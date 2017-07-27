@@ -4,13 +4,17 @@
     android:id="@+id/activity_welcome"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/login_register_bg"
     tools:context="atguigu.com.liangcangduanzi.activity.WelcomeActivity">
 
-    <ImageView
+   <!-- <ImageView
         android:id="@+id/im_icon"
         android:layout_centerInParent="true"
         android:background="@drawable/list"
         android:layout_width="250dp"
-        android:layout_height="250dp" />
+        android:layout_height="250dp" />-->
+
+    <ImageView
+        android:id="@+id/iv_icon"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </RelativeLayout>

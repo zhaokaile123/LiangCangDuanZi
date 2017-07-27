@@ -21,9 +21,15 @@ import atguigu.com.liangcangduanzi.R;
 import atguigu.com.liangcangduanzi.activity.Special_WebViewActivity;
 import atguigu.com.liangcangduanzi.bean.DaunZiBean;
 import atguigu.com.liangcangduanzi.utils.CircleTransform;
+import atguigu.com.liangcangduanzi.utils.PublicStaticData;
+import atguigu.com.liangcangduanzi.utils.ShareSDKUtils;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import cn.sharesdk.framework.Platform;
 import cn.sharesdk.onekeyshare.OnekeyShare;
+import cn.sharesdk.wechat.friends.Wechat;
+
+import static atguigu.com.liangcangduanzi.utils.ShareSDKUtils.mPlatformActionListener;
 
 /**
  * Created by ASUS on 2017/7/12.
@@ -182,7 +188,8 @@ public class DuanZiAdapter extends BaseAdapter {
             @Override
             public void onClick(View view) {
 
-                showShare();
+                //showShare();
+                ShareSDKUtils.shareQQ("微信分享测试标题sharesdk","微信分享测试内容sharesdk",null,null);
 
             }
         });
@@ -250,11 +257,10 @@ public class DuanZiAdapter extends BaseAdapter {
         ViewHolder(View view) {
             ButterKnife.inject(this, view);
 
-
         }
     }
 
-    private void showShare() {
+   /* private void showShare() {
         OnekeyShare oks = new OnekeyShare();
         //关闭sso授权
         oks.disableSSOWhenAuthorize();
@@ -280,6 +286,67 @@ public class DuanZiAdapter extends BaseAdapter {
         // 启动分享GUI
         oks.show(context);
 
+    }*/
+
+
+    //----------------------------
+
+   /*  * @param title 标题
+     * @param text 内容
+     * @param picurl 图片链接 *
+     * QQ和QQ空间设置分享链接使用setTitleUrl();
+     * 设置标题：setTitle
+     * 设置内容：setText
+     * 设置网络图片：oks.setImageUrl("http://f1.sharesdk.cn/imgs/2014/02/26/owWpLZo_638x960.jpg");
+     * 设置本地图片： //oks.setImagePath("/sdcard/test.jpg");//确保SDcard下面存在此张图片 *
+     * 微信 * url仅在微信（包括好友和朋友圈）中使用 * oks.setUrl("http://qq.com"); *//**//**/
+
+    private void showShare() {
+        OnekeyShare oks = new OnekeyShare(); //关闭sso授权
+        oks.disableSSOWhenAuthorize();
+        oks.setTitle("标题");
+        oks.setText("我是分享文本");
+
+        oks.setImageUrl("http://f1.sharesdk.cn/imgs/2014/02/26/owWpLZo_638x960.jpg");
+
+        // 启动分享
+         oks.show(context);
+    }
+
+
+    //-------------------------------指定分享到 微信中------------------------
+
+    /** * 微信 在微信分享中，需要设置setShareType属性，此处应注意
+     * @param title
+     * @param content
+     * @param PicUrl
+     * @param titleUrl
+     * Platform.SHARE_TEXT（分享文本），
+    Platform.SHARE_IMAGE（分享图片），
+    Platform.SHARE_WEBPAGE（分享网页，既图文分享），
+    Platform.SHARE_MUSIC（分享音频），
+    Platform.SHARE_VIDEO（分享视频），
+    Platform.SHARE_APPS（分享应用，仅微信支持），
+    Platform.SHARE_FILE（分享文件，仅微信支持）
+    Platform.SHARE_EMOJI（分享表情，仅微信支持）
+     */
+    public static void shareWX(String title,String content,String PicUrl,String titleUrl){
+
+        Wechat.ShareParams sp=new Wechat.ShareParams();
+        sp.setTitle(title);
+        sp.setText(content);
+        if(titleUrl!=null){
+            sp.setTitleUrl(titleUrl); // 标题的超链接
+        }
+        if(PicUrl!=null){
+            sp.setImageUrl(PicUrl);// 图片地址
+        }
+        sp.setShareType(Platform.SHARE_IMAGE);
+        sp.setUrl("http://qq.com");
+        Platform wx = PublicStaticData.myShareSDK.getPlatform (Wechat.NAME);
+        wx. setPlatformActionListener (mPlatformActionListener); // 设置分享事件回调
+        // 执行图文分享
+        wx.share(sp);
     }
 
 }

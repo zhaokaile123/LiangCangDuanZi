@@ -173,6 +173,9 @@ public class JieKouUtils {
 
     //百思不得姐 推荐
     public static String BSTUIJIAN = "http://s.budejie.com/topic/list/jingxuan/1/budejie-android-6.6.3/0-20.json";
+    public static String BSTUIJIANHEAD = "http://s.budejie.com/topic/list/jingxuan/1/budejie-android-6.6.3/0-";
+    public static String BSTUIJIANEND = ".json";
+
 
     // 百思不得解 段子
     public static String BSDUANZI = "http://s.budejie.com/topic/tag-topic/64/hot/budejie-android-6.6.3/0-20.json";

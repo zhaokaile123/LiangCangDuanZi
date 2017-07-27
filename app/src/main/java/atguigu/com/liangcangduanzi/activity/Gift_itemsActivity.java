@@ -23,7 +23,6 @@ import butterknife.InjectView;
 import okhttp3.Call;
 
 public class Gift_itemsActivity extends AppCompatActivity {
-
     @InjectView(R.id.iv_back)
     ImageView ivBack;
     @InjectView(R.id.shoppingCar)

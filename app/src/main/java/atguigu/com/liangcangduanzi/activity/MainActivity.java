@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -13,10 +14,10 @@ import java.util.ArrayList;
 import atguigu.com.liangcangduanzi.R;
 import atguigu.com.liangcangduanzi.base.BaseFragment;
 import atguigu.com.liangcangduanzi.fragment.DaRenFragment;
-import atguigu.com.liangcangduanzi.fragment.Pesonal;
 import atguigu.com.liangcangduanzi.fragment.ShareFragment;
 import atguigu.com.liangcangduanzi.fragment.ShopFragment;
 import atguigu.com.liangcangduanzi.fragment.ZaZhiFragment;
+import atguigu.com.liangcangduanzi.fragment.Pesonal;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
@@ -56,6 +57,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.inject(this);
+
+        //透明状态栏
+         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        //透明导航栏
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
 
         //初始多个页面对应的Fragment并且设置默认的Fragment页面
         initFragment();

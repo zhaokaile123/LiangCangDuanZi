@@ -1,2 +1,4 @@
-include ':app', ':addsubview'
+include ':app', ':addsubview', ':BiliBili'
 include ':PullToRefresh——library'
+
+

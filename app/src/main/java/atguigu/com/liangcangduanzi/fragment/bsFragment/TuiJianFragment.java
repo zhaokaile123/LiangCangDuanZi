@@ -5,12 +5,17 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 
+import com.cjj.MaterialRefreshLayout;
+import com.cjj.MaterialRefreshListener;
 import com.google.gson.Gson;
+
+import java.util.List;
 
 import atguigu.com.liangcangduanzi.R;
 import atguigu.com.liangcangduanzi.adapter.RecyclerViewAdpater;
 import atguigu.com.liangcangduanzi.base.BaseFragment;
 import atguigu.com.liangcangduanzi.bean.BSTuiJianBean;
+import atguigu.com.liangcangduanzi.utils.JieKouUtils;
 import atguigu.com.liangcangduanzi.utils.NetUtils;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -22,18 +27,27 @@ import okhttp3.Call;
 
 public class TuiJianFragment extends BaseFragment {
 
+
     @InjectView(R.id.recycleview)
     RecyclerView recycleview;
 
+    @InjectView(R.id.refresh)
+    MaterialRefreshLayout refresh;
+
     private BSTuiJianBean bsTuiJianBean;
+    List<BSTuiJianBean.ListBean> list;
 
     private RecyclerViewAdpater adapter;
+
+    private int i = 1;
+    private boolean isLoadMore = false;
 
     @Override
     public View initView() {
         View view = View.inflate(context, R.layout.bs_tuijian, null);
         ButterKnife.inject(this, view);
 
+        refresh.setLoadMore(true);//支持上拉
         return view;
     }
 
@@ -41,21 +55,46 @@ public class TuiJianFragment extends BaseFragment {
     public void initData() {
         super.initData();
         getDataFromNet();
+
+        refresh.setMaterialRefreshListener(new MaterialRefreshListener() {
+            @Override// 下拉刷新
+            public void onRefresh(MaterialRefreshLayout materialRefreshLayout) {
+                isLoadMore = false;
+                getDataFromNet();
+            }
+
+            @Override// 上拉加载
+            public void onRefreshLoadMore(MaterialRefreshLayout materialRefreshLayout) {
+                isLoadMore = true;
+                i++;
+                Log.e("TAG","i="+i);
+                getDataFromNet();
+            }
+        });
+
+
     }
 
-    private void getDataFromNet() {
 
-        NetUtils.getInstance().get("http://s.budejie.com/topic/list/jingxuan/1/budejie-android-6.6.3/0-20.json", new NetUtils.OnOkHttpListener() {
+    private void getDataFromNet() {
+        NetUtils.getInstance().get(JieKouUtils.BSTUIJIANHEAD + 20 * i + JieKouUtils.BSTUIJIANEND, new NetUtils.OnOkHttpListener() {
             @Override
             public void onResponse(String response, int id) {
+
                 progressData(response);
-                Log.e("TAG","成功");
+                if (!isLoadMore) {
+                    refresh.finishRefresh();
+                } else {
+                    refresh.finishRefreshLoadMore();
+                }
+
+                Log.e("TAG", "成功");
             }
 
             @Override
             public void onError(Call call, Exception e, int id) {
-                Log.e("TAG",e.getMessage());
 
+                Log.e("TAG", e.getMessage());
             }
         });
     }
@@ -64,11 +103,25 @@ public class TuiJianFragment extends BaseFragment {
 
         bsTuiJianBean = new Gson().fromJson(json, BSTuiJianBean.class);
 
-        adapter = new RecyclerViewAdpater(context,bsTuiJianBean.getList());
+        recycleview.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
+        list = bsTuiJianBean.getList();
 
-        recycleview.setAdapter(adapter);
+        if(!isLoadMore) {
+            adapter = new RecyclerViewAdpater(context, list);
 
-        recycleview.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false));
+            recycleview.setAdapter(adapter);
+
+        }else {
+
+            adapter = new RecyclerViewAdpater(context, list);
+
+            recycleview.setAdapter(adapter);
+
+            recycleview.scrollToPosition((i-1)*20);
+        }
+
+
+
 
     }
 
@@ -77,4 +130,5 @@ public class TuiJianFragment extends BaseFragment {
         super.onDestroyView();
         ButterKnife.reset(this);
     }
+
 }
